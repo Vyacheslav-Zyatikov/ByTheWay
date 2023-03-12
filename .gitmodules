@@ -1,0 +1,3 @@
+[submodule "front/react-final"]
+	path = front/react-final
+	url = https://github.com/LevSavin/react-final.git
