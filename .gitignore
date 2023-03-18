@@ -1,0 +1,5 @@
+.env
+docker/logs/*
+docker/mysql/*
+/.git
+/.idea
