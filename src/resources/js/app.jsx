@@ -13,8 +13,8 @@ createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
         resolvePageComponent(
-            `./Pages/${name}.jsx`,
-            import.meta.glob("./Pages/**/*.jsx")
+            `./Pages/${name}.tsx`,
+            import.meta.glob("./Pages/**/*.tsx")
         ),
     setup({ el, App, props }) {
         return render(<App {...props} />, el);
@@ -22,4 +22,4 @@ createInertiaApp({
 });
 
 // you can specify any color of choice
-InertiaProgress.init({ color: "#4B5563" });
+InertiaProgress.init({ color: "#fd538e" });

@@ -14,5 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return inertia('welcome');
+    return inertia('HomePage');
+});
+
+Route::get('/wel', function () {
+    return inertia('Welcome');
+});
+
+Route::get('/registration', function () {
+    return inertia('RegisterPage');
+});
+
+Route::get('/profile', function () {
+    return inertia('ProfilePage');
+});
+
+Route::get('/.*', function () {
+    return inertia('NotFoundPage');
 });
