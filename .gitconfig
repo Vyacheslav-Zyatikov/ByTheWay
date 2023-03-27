@@ -1,0 +1,8 @@
+[core]
+	editor = nano
+	autocrlf = input
+[user]
+	name = Vyacheslav-Zyatikov
+	email = vyacheslav.zyatikov@yandex.ru
+[init]
+	defaultBranch = server
