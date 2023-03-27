@@ -1,7 +1,9 @@
 /.ssh
 /.docker
+/.local
 .bash_history
 .env
+.gitconfig
 docker/logs/*
 docker/mysql/*
 src/node_modules
