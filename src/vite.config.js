@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
     plugins: [
         laravel({
-            input: "resources/js/app.jsx",
+            input: "resources/js/app.tsx",
         }),
         react(),
     ],
@@ -15,6 +15,7 @@ export default defineConfig({
        open: false,
        hmr: {
             host: '77.37.192.93',
+		    overlay: true,
         },
     },
 });

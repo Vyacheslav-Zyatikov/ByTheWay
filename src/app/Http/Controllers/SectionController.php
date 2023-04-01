@@ -13,17 +13,17 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $restaurants = DB::table('sections')
-        ->join('restaurants', 'restaurants.id', '=', 'sections.restaurant_id')
-        ->join('dishs', 'dishs.sections_id', '=', 'sections.id')
+        $restaurants = DB::table('section')
+        ->join('restaurant', 'restaurant.id', '=', 'section.restaurant_id')
+        ->join('dish', 'dish.section_id', '=', 'section.id')
         ->select(
-            'sections.title',
-            'restaurants.title as name_restaurant',
-            'dishs.title',
-            'dishs.description',
-            'dishs.image',
-            'dishs.price',
-            'dishs.availability'
+            'section.title',
+            'restaurant.title as name_restaurant',
+            'dish.title',
+            'dish.description',
+            'dish.image',
+            'dish.price',
+            'dish.availability'
         )
         ->get();
 
@@ -53,18 +53,18 @@ class SectionController extends Controller
     public function show(Section $section)
     {
         $id = $section->id;
-        $section = DB::table('sections')
-            ->join('restaurants', 'restaurants.id', '=', 'sections.restaurant_id')
-            ->join('dishs', 'dishs.sections_id', '=', 'sections.id')
-            ->where('sections.id', $id)
+        $section = DB::table('section')
+            ->join('restaurant', 'restaurant.id', '=', 'section.restaurant_id')
+            ->join('dish', 'dish.section_id', '=', 'section.id')
+            ->where('section.id', $id)
             ->select(
-                'sections.title',
-                'restaurants.title as name_restaurant',
-                'dishs.title',
-                'dishs.description',
-                'dishs.image',
-                'dishs.price',
-                'dishs.availability'
+                'section.title',
+                'restaurant.title as name_restaurant',
+                'dish.title',
+                'dish.description',
+                'dish.image',
+                'dish.price',
+                'dish.availability'
             )
             ->first();
 

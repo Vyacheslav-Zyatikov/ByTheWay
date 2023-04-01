@@ -13,17 +13,17 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = DB::table('restaurants')
+        $restaurant = DB::table('restaurant')
         ->select(
-            'restaurants.id',
-            'restaurants.title',
-            'restaurants.description',
-            'restaurants.image',
-            'restaurants.rate',            
+            'restaurant.id',
+            'restaurant.title',
+            'restaurant.description',
+            'restaurant.image',
+            'restaurant.rate',            
         )
         ->get();
 
-        return json_encode($restaurants, JSON_UNESCAPED_UNICODE);
+        return json_encode($restaurant, JSON_UNESCAPED_UNICODE);
     }
 
     /**

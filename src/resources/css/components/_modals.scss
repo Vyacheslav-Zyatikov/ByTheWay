@@ -1,0 +1,32 @@
+.modal {
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__header {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    &-title {
+      margin-top: 0px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+  &__body {
+    flex-grow: 1;
+  }
+  &__icon-close {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
+}

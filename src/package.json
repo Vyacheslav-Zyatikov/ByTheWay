@@ -8,17 +8,23 @@
         "@vitejs/plugin-react": "^3.1.0",
         "axios": "^1.1.2",
         "laravel-vite-plugin": "^0.7.2",
+        "sass": "^1.60.0",
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@inertiajs/inertia": "^0.11.1",
-        "@inertiajs/inertia-react": "^0.8.1",
-        "@inertiajs/progress": "^0.2.7",
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
+        "@inertiajs/react": "^1.0.2",
         "@mui/material": "^5.11.14",
+        "@types/jest": "^29.5.0",
+        "@types/node": "^18.15.11",
+        "@types/react": "^18.0.31",
+        "@types/react-dom": "^18.0.11",
         "jsconfig.json": "^2.3.3",
         "npm": "^9.6.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.9.0"
+        "react-router-dom": "^6.9.0",
+        "typescript": "^5.0.2"
     }
 }

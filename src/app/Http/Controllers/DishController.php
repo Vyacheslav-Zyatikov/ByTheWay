@@ -13,15 +13,15 @@ class DishController extends Controller
      */
     public function index()
     {
-        $dishs = DB::table('dishs')
-        ->join('sections','sections.id', "=", 'dishs.section_id')
+        $dishs = DB::table('dish')
+        ->join('section','section.id', "=", 'dish.section_id')
         ->select(
-            'dishs.title',
-            'dishs.description',
-            'dishs.image',
-            'dishs.price',
-            'dishs.availability',
-            'sections.title as name_section',         
+            'dish.title',
+            'dish.description',
+            'dish.image',
+            'dish.price',
+            'dish.availability',
+            'section.title as name_section',         
         )
         ->get();
 

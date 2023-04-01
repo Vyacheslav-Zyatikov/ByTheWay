@@ -1,0 +1,45 @@
+body {
+  line-height: 1;
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+}
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+  color: $color-primary;
+
+  &:hover {
+    color: $color-primary-hover;
+  }
+
+  &:disabled {
+    color: $disabled-text;
+  }
+}
+
+button {
+  box-shadow: none;
+  border: none;
+}

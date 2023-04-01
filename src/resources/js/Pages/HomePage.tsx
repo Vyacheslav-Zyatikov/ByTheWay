@@ -1,4 +1,4 @@
-import "~/pages/_homepage.scss"
+import "../../css/pages/_homepage.scss";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -8,9 +8,9 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import {Link} from "react-router-dom"
+import { Link } from '@inertiajs/react';
 
-const restaurants: [] = [
+const restaurants = [
   {
     id: 1,
     title: "Чилим Seafood",
@@ -42,7 +42,7 @@ const restaurants: [] = [
     image: "https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
     description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
   }
-]
+];
 
 export default function HomePage() {
   return (
@@ -68,7 +68,7 @@ export default function HomePage() {
                 <Card
                   sx={{ height: "100%", display: "flex", flexDirection: "column" }}
                 >
-                  <Link className="homepage__image-wrapper" to={`${process.env.REACT_APP_REPO}/`}>
+                  <Link className="homepage__image-wrapper" to='/'>
                     <img className="homepage__image" src={card.image} alt={card.title}/>
                   </Link>{" "}
                   <CardContent sx={{ flexGrow: 1 }}>

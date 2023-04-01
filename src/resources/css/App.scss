@@ -1,0 +1,94 @@
+@import './_variables.scss';
+@import './_reset.scss';
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+body {
+  font-size: 14px;
+  font-weight: 400;
+  color: $color-font;
+  width: 100%;
+  margin: 0px;
+  scrollbar-width: thin;
+  scrollbar-color: #f3faf7;
+}
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #afafaf;
+  border-radius: 12px;
+  box-shadow: inset 1px 1px 10px #f3faf7;
+}
+body::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 1px 1px 6px #f3faf7;
+}
+html {
+  display: flex;
+  min-height: 100%;
+}
+h1 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  color: $color-font;
+}
+h2 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 700;
+  color: $color-font;
+}
+p {
+  color: $color-font;
+}
+#app {
+  display: flex;
+  height: 100%;
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}
+
+.link {
+  cursor: pointer;
+  color: $color-el-primary;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    color: $color-primary-hover;
+  }
+  &:focus {
+    color: $color-primary-focus !important;
+  }
+  &:disabled {
+    color: $disabled-text;
+  }
+  &--plain {
+    color: $color-font;
+  }
+  &_disabled {
+    color: $disabled-text;
+  }
+}
+
+.rotate_90 {
+  transform: rotate(90deg);
+}
+.rotate_180 {
+  transform: rotate(180deg);
+}
+.rotate_270 {
+  transform: rotate(270deg);
+}
+
+.hidden {
+  display: none;
+}
+.overflow-visible {
+  overflow: visible !important;
+}
