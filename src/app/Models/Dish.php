@@ -11,7 +11,7 @@ class Dish extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'dishs';
+    protected $table = 'dish';
 
 	protected $fillable = [
 		'title',
