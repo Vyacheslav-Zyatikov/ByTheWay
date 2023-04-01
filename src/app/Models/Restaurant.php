@@ -11,7 +11,7 @@ class Restaurant extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'restaurants';
+    protected $table = 'restaurant';
 
 	protected $fillable = [
 		'title',
@@ -20,6 +20,7 @@ class Restaurant extends Model
         'rate',
         'password',
         'email',
+		'isadmin'
 	];
 
     public function section() {
