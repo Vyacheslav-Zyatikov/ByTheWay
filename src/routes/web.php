@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\SpaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RestaurantController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\DishController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,21 +15,6 @@ use App\Http\Controllers\DishController;
 |
 */
 
-Route::get('/', function () {
-    return inertia('HomePage');
-});
+//Auth::routes();
 
-Route::resource('/restaurants',RestaurantController::class);
-Route::get('/restaurants/index/{restaurant}',[RestaurantController::class,'index'])
-    ->where('restaurant', '\d+')
-    ->name('restaurants');
-
-Route::resource('/sections',SectionController::class);
-Route::get('/sections/index/{section}',[SectionController::class,'index'])
-    ->where('section', '\d+')
-    ->name('sections');
-
-Route::resource('/dishs',DishController::class);
-Route::get('/dishs/index/{dish}',[DishController::class,'index'])
-    ->where('dish', '\d+')
-    ->name('dishs');
+Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');

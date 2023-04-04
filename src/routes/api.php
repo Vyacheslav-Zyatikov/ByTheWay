@@ -16,10 +16,10 @@ use App\Http\Controllers\DishController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+    return inertia('HomePage');
 });
+
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class,'show']);
@@ -30,22 +30,22 @@ Route::put('restaurants/{restaurant}', [RestaurantController::class,'update']);
 // удаление
 Route::delete('restaurants/{restaurant}', [RestaurantController::class,'destroy']);
 
-/*** БЛЮДА ***/
-Route::get('dishs', [DishController::class,'index']);
-Route::get('dishs/{dish}', [DishController::class,'show']);
-// добавление
-Route::post('dishs', [DishController::class,'store']);
-// редактирование
-Route::put('dishs/{dish}', [DishController::class,'update']);
-// удаление
-Route::delete('dishs/{dish}', [DishController::class,'destroy']);
+// /*** РАЗДЕЛЫ МЕНЮ ***/
+// разделы меню конкретного ресторана со списком блюд в каждом разделе
+Route::get('sections/{restaurantId}', [SectionController::class,'getRestaurantSections']);
+// // добавление
+// Route::post('sections', [SectionController::class,'store']);
+// // редактирование
+// Route::put('sections/{section}', [SectionController::class,'update']);
+// // удаление
+// Route::delete('sections/{section}', [SectionController::class,'destroy']);
 
-
-/*** РАЗДЕЛЫ МЕНЮ ***/
-Route::get('sections', [SectionController::class,'index']);
-// добавление
-Route::post('sections', [SectionController::class,'store']);
-// редактирование
-Route::put('sections/{section}', [SectionController::class,'update']);
-// удаление
-Route::delete('sections/{section}', [SectionController::class,'destroy']);
+// /*** БЛЮДА ***/
+// Route::get('dishes', [DishController::class,'index']);
+// Route::get('dishes/{dish}', [DishController::class,'show']);
+// // добавление
+// Route::post('dishes', [DishController::class,'store']);
+// // редактирование
+// Route::put('dishes/{dish}', [DishController::class,'update']);
+// // удаление
+// Route::delete('dishes/{dish}', [DishController::class,'destroy']);

@@ -4,23 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $table = 'section';
 
-	protected $fillable = [
-        'resturant_id',
-		'title',
-	];
+    protected $guarded = [ // зеркальный вариант $fillable (все, кроме id)
+        'id'
+    ];
+
     public function restaurant() {
-        return $this->belongsTo(Restaurant::class,'id');
+        return $this->belongsTo(Restaurant::class);
     }
-    public function dish() {
-        return $this->hasMany(Dish::class,'section_id');
+
+    public function dishes() {
+        return $this->hasMany(Dish::class);
     }
 }
