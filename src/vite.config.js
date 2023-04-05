@@ -13,6 +13,7 @@ export default defineConfig({
        host: true,
        port: 3000,
        open: false,
+       cors: false,
        hmr: {
             host: '77.37.192.93',
 		    overlay: true,

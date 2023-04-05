@@ -6,5 +6,8 @@
 .gitconfig
 docker/logs/*
 docker/mysql/*
+docker/dms/mail-state
+docker/dms/mail-logs
+docker/dms/mail-data
 src/node_modules
 src/vendor
