@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,17 +14,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurant = DB::table('restaurant')
-        ->select(
-            'restaurant.id',
-            'restaurant.title',
-            'restaurant.description',
-            'restaurant.image',
-            'restaurant.rate',            
-        )
-        ->get();
-
-        return json_encode($restaurant, JSON_UNESCAPED_UNICODE);
+        return RestaurantResource::collection(Restaurant::where('isadmin', 0)->get());
     }
 
     /**
@@ -40,6 +31,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $restaurant = Restaurant::create($request->all());
+
         return response()->json($restaurant,201);
     }
 
@@ -48,9 +40,7 @@ class RestaurantController extends Controller
      */
     public function show(Restaurant $restaurant)
     {
-        $restaurant = json_encode($restaurant, JSON_UNESCAPED_UNICODE);
-
-        return $restaurant;
+        return new RestaurantResource(Restaurant::findOrFail($restaurant->id));
     }
 
     /**

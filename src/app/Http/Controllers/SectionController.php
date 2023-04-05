@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RestaurantResource;
+use App\Http\Resources\SectionResource;
+use App\Models\Restaurant;
 use App\Models\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,21 +16,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $restaurants = DB::table('section')
-        ->join('restaurant', 'restaurant.id', '=', 'section.restaurant_id')
-        ->join('dish', 'dish.section_id', '=', 'section.id')
-        ->select(
-            'section.title',
-            'restaurant.title as name_restaurant',
-            'dish.title',
-            'dish.description',
-            'dish.image',
-            'dish.price',
-            'dish.availability'
-        )
-        ->get();
-
-        return json_encode($restaurants, JSON_UNESCAPED_UNICODE);
+        //
     }
 
     /**
@@ -44,6 +33,7 @@ class SectionController extends Controller
     public function store(Request $request)
     {
         $restaurant = Restaurant::create($request->all());
+
         return response()->json($restaurant, 201);
     }
 
@@ -52,23 +42,7 @@ class SectionController extends Controller
      */
     public function show(Section $section)
     {
-        $id = $section->id;
-        $section = DB::table('section')
-            ->join('restaurant', 'restaurant.id', '=', 'section.restaurant_id')
-            ->join('dish', 'dish.section_id', '=', 'section.id')
-            ->where('section.id', $id)
-            ->select(
-                'section.title',
-                'restaurant.title as name_restaurant',
-                'dish.title',
-                'dish.description',
-                'dish.image',
-                'dish.price',
-                'dish.availability'
-            )
-            ->first();
-
-        return json_encode($section, JSON_UNESCAPED_UNICODE);
+        //
     }
 
     /**
@@ -93,5 +67,12 @@ class SectionController extends Controller
     public function destroy(Section $section)
     {
         //
+    }
+
+    public function getRestaurantSections($id) 
+    {
+        $restaurant = new RestaurantResource(Restaurant::with(['sections.dishes'])->findOrFail($id));
+
+        return SectionResource::collection($restaurant->sections()->get());
     }
 }
