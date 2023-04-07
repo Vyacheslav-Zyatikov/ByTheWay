@@ -16,9 +16,6 @@ use App\Http\Controllers\DishController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return inertia('HomePage');
-});
 
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);
