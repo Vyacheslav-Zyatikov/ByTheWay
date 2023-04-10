@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     container_name: nginx
     ports:
-      - 80:8000
+      - 8000:8000
     volumes:
       - ./src:/var/www/html
       - .env:/var/www/html/.env
