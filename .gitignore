@@ -9,5 +9,6 @@ docker/mysql/*
 docker/dms/mail-state
 docker/dms/mail-logs
 docker/dms/mail-data
+docker/nginx/certs
 src/node_modules
 src/vendor
