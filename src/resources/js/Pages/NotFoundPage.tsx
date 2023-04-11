@@ -1,3 +1,4 @@
+import * as React from "react";
 import {Link} from "react-router-dom"
 
 function NotFoundPage() {
@@ -5,7 +6,7 @@ function NotFoundPage() {
     <div>
       <p>404</p>
       <p>Страница не найдена</p>
-      <Link to={`${process.env.REACT_APP_REPO}/`}>На главную</Link>
+      <Link to={"/"}>На главную</Link>
     </div>
   );
 }

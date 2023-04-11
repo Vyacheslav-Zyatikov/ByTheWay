@@ -29,6 +29,9 @@ html {
   display: flex;
   min-height: 100%;
 }
+#app {
+  display: block !important;
+}
 h1 {
   font-size: 20px;
   line-height: 28px;
