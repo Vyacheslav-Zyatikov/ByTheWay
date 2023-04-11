@@ -1,4 +1,5 @@
 import "../../css/pages/_homepage.scss";
+import { useEffect } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -9,6 +10,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "@inertiajs/react";
+import { axios } from "@/app";
 
 const restaurants = [
   {
@@ -45,6 +47,23 @@ const restaurants = [
 ];
 
 export default function HomePage() {
+  const getRestaurants = async () => {
+    console.log("ok")
+    const url = "/restaurants"
+    axios
+      .get(url)
+      .then(({data}) => {
+        console.log(data)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }
+
+  useEffect(() => {
+    getRestaurants();
+  }, []);
+  
   return (
     <Box className="homepage">
         <Box
