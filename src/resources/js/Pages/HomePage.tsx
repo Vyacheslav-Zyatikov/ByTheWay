@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link } from '@inertiajs/react';
+import { Link } from "@inertiajs/react";
 
 const restaurants = [
   {
@@ -68,7 +68,7 @@ export default function HomePage() {
                 <Card
                   sx={{ height: "100%", display: "flex", flexDirection: "column" }}
                 >
-                  <Link className="homepage__image-wrapper" to='/'>
+                  <Link className="homepage__image-wrapper" href={"/"}>
                     <img className="homepage__image" src={card.image} alt={card.title}/>
                   </Link>{" "}
                   <CardContent sx={{ flexGrow: 1 }}>

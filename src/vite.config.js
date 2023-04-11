@@ -1,7 +1,8 @@
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import react from "@vitejs/plugin-react";
-import basicSsl from '@vitejs/plugin-basic-ssl'
+import basicSsl from "@vitejs/plugin-basic-ssl"
 
 export default defineConfig({
     plugins: [
@@ -11,7 +12,19 @@ export default defineConfig({
         basicSsl(),
         react(),
     ],
-    server: {
+    resolve: {
+      alias: [
+        {
+          find: "@",
+          replacement: fileURLToPath(new URL("./resources/js/", import.meta.url)),
+        },
+        {
+          find: "~",
+          replacement: fileURLToPath(new URL("./resources/css/", import.meta.url)),
+        },
+      ],
+    },
+    /* server: {
        host: true,
        port: 3000,
        open: false,
@@ -26,5 +39,5 @@ export default defineConfig({
             host: '77.37.192.93',
 		    overlay: true,
         },
-    },
+    }, */
 });
