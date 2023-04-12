@@ -1,5 +1,5 @@
-import "./bootstrap";
 import "../css/App.scss";
+import "./bootstrap";
 import { createInertiaApp } from "@inertiajs/react";
 import React from "react";
 import { createRoot } from "react-dom/client"
@@ -9,11 +9,8 @@ import { store } from "./redux/store";
 
 import axiosInstance from "axios";
 export const axios = axiosInstance.create({
-  // baseURL: "http://77.37.192.93/api",
   baseURL: "/api",
-  headers: {"X-Requested-With": "XMLHttpRequest"}
 });
-// axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 createInertiaApp({
   resolve: name => {

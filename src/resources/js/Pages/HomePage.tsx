@@ -1,5 +1,5 @@
 import "../../css/pages/_homepage.scss";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -11,13 +11,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "@inertiajs/react";
 import { axios } from "@/app";
+import { restaurantType } from "@/types/common"
 
-const restaurants = [
+/* const restaurants = [
   {
     id: 1,
     title: "Чилим Seafood",
     image: "https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    // image: "/images/restaurants/seafood.jpg",
     description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
   },
   {
@@ -44,16 +44,17 @@ const restaurants = [
     image: "https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
     description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
   }
-];
+]; */
 
 export default function HomePage() {
+  const [restaurants, setRestaurants] = useState<restaurantType[]>([]);
+
   const getRestaurants = async () => {
-    console.log("ok")
     const url = "/restaurants"
     axios
       .get(url)
       .then(({data}) => {
-        console.log(data)
+        setRestaurants(data.data);
       })
       .catch((error) => {
         console.log(error)
@@ -88,7 +89,7 @@ export default function HomePage() {
                   sx={{ height: "100%", display: "flex", flexDirection: "column" }}
                 >
                   <Link className="homepage__image-wrapper" href={"/"}>
-                    <img className="homepage__image" src={card.image} alt={card.title}/>
+                    <img className="homepage__image" src={`/images/${card.image}`} alt={card.title}/>
                   </Link>{" "}
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
