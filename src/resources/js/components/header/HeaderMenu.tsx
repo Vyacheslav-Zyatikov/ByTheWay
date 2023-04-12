@@ -1,5 +1,5 @@
 import * as React from "react";
-// import { useNavigate } from "react-router-dom";
+// import { router } from "@inertiajs/react"
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
@@ -11,11 +11,9 @@ import MenuItem from "@mui/material/MenuItem";
 import type {objectType, headerItem} from "@/types/common"
 
 function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: string, handleModalOpen}) {
-  /* 
-  const navigate = useNavigate();
-
-  const toMain = () => {
-    navigate(`/`);
+  
+  /* const toMain = () => {
+    router.visit("/", { method: "post" })
   } */
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
