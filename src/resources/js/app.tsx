@@ -1,24 +1,35 @@
-import './bootstrap';
 import "../css/App.scss";
-import { createInertiaApp } from '@inertiajs/react';
-import { InertiaProgress } from "@inertiajs/progress";
+import "./bootstrap";
+import { createInertiaApp } from "@inertiajs/react";
 import React from "react";
-import { render } from "react-dom";
-import { createRoot } from 'react-dom/client'
-import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { createRoot } from "react-dom/client"
+import Layout from "@/components/Layout";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
-const appName =
-    window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
+import axiosInstance from "axios";
+export const axios = axiosInstance.create({
+  baseURL: "/api",
+});
 
 createInertiaApp({
   resolve: name => {
-    const pages = import.meta.glob('./Pages/**/*.tsx', { eager: true })
-    return pages[`./Pages/${name}.tsx`]
+    // eslint-disable-next-line
+    // @ts-ignore
+    const pages = import.meta.glob("./pages/**/*.tsx", { eager: true })
+    const page = pages[`./pages/${name}.tsx`]
+    page.default.layout = page.default.layout || (page => (
+      <Provider store={store}>
+        {/* eslint-disable-next-line */}
+        <Layout children={page} />
+      </Provider>
+    ));
+    return page;
   },
   setup({ el, App, props }) {
     createRoot(el).render(<App {...props} />)
   },
   progress: {
-    color: '#4B5563',
+    color: "#4B5563",
   },
 })
