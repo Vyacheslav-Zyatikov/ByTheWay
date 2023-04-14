@@ -34,7 +34,7 @@ function HeaderBar() {
   const handleModalOpen = (value) => setIsModalOpen(value);
 
   const handleNavMenu = (page) => {
-    router.visit(`/${page.url}`, { method: "post" })
+    router.visit(`/${page.url}`, { method: "GET" })
   }
 
   return (
