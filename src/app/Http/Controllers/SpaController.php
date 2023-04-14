@@ -8,6 +8,6 @@ class SpaController extends Controller
 {
     public function index() 
     {
-        return inertia('HomePage');
+        return Inertia::render('HomePage');
     }
 }
