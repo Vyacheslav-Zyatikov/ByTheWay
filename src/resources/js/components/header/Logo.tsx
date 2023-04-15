@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { router } from "@inertiajs/react"
 import Typography from "@mui/material/Typography";
 import IconLogo from "@/components/icons/IconLogo";
 import Box from "@mui/material/Box";
@@ -9,10 +9,9 @@ const style = {
   cursor: "pointer"
 }
 export default function Logo() {
-  const navigate = useNavigate();
 
   const toMain = () => {
-    navigate("/");
+    router.visit("/", { method: "post" })
   }
 
   return (

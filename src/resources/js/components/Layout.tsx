@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 export default function Layout({ children }) {
   return (
     <div className="layout">
-      {/* <HeaderBar></HeaderBar> */}
+      <HeaderBar></HeaderBar>
       <main>
         <Container maxWidth="xl" sx={{mt: "20px", minHeight: "70vh"}}>
           {children}

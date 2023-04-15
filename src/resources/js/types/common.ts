@@ -14,6 +14,9 @@ export type restaurantType = {
   title: string,
   image: string,
   description: string,
+  email: string,
+  is_admin: number,
+  rate: string,
 }
 
 export type dishType = {
