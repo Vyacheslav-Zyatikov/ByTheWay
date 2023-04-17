@@ -15,7 +15,11 @@ class Cart extends Model
         'id'
     ];
 
-    public function section() {
-        return $this->belongsTo(Section::class);
+    public function session() {
+        return $this->belongsTo(Session::class);
+    }
+
+    public function dish() {
+        return $this->belongsTo(Dish::class);
     }
 }

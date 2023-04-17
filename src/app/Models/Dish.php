@@ -18,4 +18,8 @@ class Dish extends Model
     public function section() {
         return $this->belongsTo(Section::class);
     }
+
+    public function dish_session() {
+        return $this->hasMany(Cart::class);
+    }
 }
