@@ -22,4 +22,8 @@ class Section extends Model
     public function dishes() {
         return $this->hasMany(Dish::class);
     }
+
+    public function dish_sessions() {
+        return $this->hasMany(Cart::class);
+    }
 }
