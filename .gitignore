@@ -7,10 +7,10 @@
 .gitconfig
 docker/logs/*
 docker/mysql/*
-docker/dms/mail-state
-docker/dms/mail-logs
-docker/dms/mail-data
-docker/nginx/certs
+docker/dms/mail-state/*
+docker/dms/mail-logs/*
+docker/dms/mail-data/*
+docker/nginx/certs/*
 src/node_modules
 src/vendor
 package-lock.json
