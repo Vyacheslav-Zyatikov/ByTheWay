@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\DishController;
+use App\Http\Controller\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::put('restaurants/{restaurant}', [RestaurantController::class,'update']);
 // удаление
 Route::delete('restaurants/{restaurant}', [RestaurantController::class,'destroy']);
 
-// /*** РАЗДЕЛЫ МЕНЮ ***/
+/*** РАЗДЕЛЫ МЕНЮ ***/
 // разделы меню конкретного ресторана со списком блюд в каждом разделе
 Route::get('sections/{restaurantId}', [SectionController::class,'getRestaurantSections']);
 // // добавление
@@ -37,7 +38,7 @@ Route::get('sections/{restaurantId}', [SectionController::class,'getRestaurantSe
 // // удаление
 // Route::delete('sections/{section}', [SectionController::class,'destroy']);
 
-// /*** БЛЮДА ***/
+/*** БЛЮДА ***/
 // Route::get('dishes', [DishController::class,'index']);
 // Route::get('dishes/{dish}', [DishController::class,'show']);
 // // добавление
@@ -46,3 +47,10 @@ Route::get('sections/{restaurantId}', [SectionController::class,'getRestaurantSe
 // Route::put('dishes/{dish}', [DishController::class,'update']);
 // // удаление
 // Route::delete('dishes/{dish}', [DishController::class,'destroy']);
+
+/*** КОРЗИНА ***/
+Route::get('cart/{cart}', [CartController::class,'show']);
+//создание корзины
+Route::post('cart',[CartController::class,'create']);
+//добавление нового блюда
+Route::put('cart/{cart}', [CartController::class,'update']);
