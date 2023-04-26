@@ -13,14 +13,15 @@ export default defineConfig({
         "@": "/resources/js",
       },
     },
-     server: {
-       host: true,
-       port: 3000,
-       open: false,
-       cors: true,
-       hmr: {
-            host: '77.37.192.93',
+    server: {
+      host: true,
+      port: 3000,
+      open: false,
+      cors: true,
+      hmr: {
+        // host: '77.37.192.93',
+        host: '127.0.0.1',
 		    overlay: true,
-        },
+      },
     }, 
 });
