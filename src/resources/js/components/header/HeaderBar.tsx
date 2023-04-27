@@ -1,5 +1,5 @@
 import * as React from "react";
-import { router } from "@inertiajs/react"
+import { router } from "@inertiajs/react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -34,7 +34,7 @@ function HeaderBar() {
   const handleModalOpen = (value) => setIsModalOpen(value);
 
   const handleNavMenu = (page) => {
-    router.visit(`/${page.url}`, { method: "GET" })
+    router.visit(`/${page.url}`, { method: "get" })
   }
 
   return (

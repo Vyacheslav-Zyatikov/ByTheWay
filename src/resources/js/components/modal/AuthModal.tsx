@@ -12,6 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { router } from "@inertiajs/react";
 
 const wrapper = {
   minWidth: 296,
@@ -33,6 +34,11 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
     setOpen(false)
     handleModalOpen(false);
   };
+
+  const openRegister = () => {
+    handleClose();
+    router.visit('register', { method: "get" });
+  }
 
   useEffect(() => {
     setOpen(isModalOpen);
@@ -100,9 +106,8 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
             </Box>
           </Box>
 
-          
           <Box className="modal__footer">
-            <Button size="large" sx={{width: "100%"}}>
+            <Button onClick={() => openRegister()} size="large" sx={{width: "100%"}}>
               Регистрация
             </Button>
           </Box>
