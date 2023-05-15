@@ -1,9 +1,7 @@
 import { router } from "@inertiajs/react";
 import Typography from "@mui/material/Typography";
 import IconLogo from "@/components/icons/IconLogo";
-// import Button from '@material-ui/core/Button';
 import Box from "@mui/material/Box";
-import { Inertia } from '@inertiajs/inertia';
 
 const style = {
   display: "flex",
@@ -13,8 +11,7 @@ const style = {
 export default function Logo() {
 
   const toMain = () => {
-    console.log('toMain');
-    Inertia.visit('', { method: "get" });
+    router.visit("/", { method: "get" });
   }
 
   return (
@@ -38,6 +35,5 @@ export default function Logo() {
         </Typography>
 
     </Box>
-    // <Button onClick={() => toMain()} startIcon={}>      </Button>
   );
 }

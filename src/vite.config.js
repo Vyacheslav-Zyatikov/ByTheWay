@@ -7,6 +7,7 @@ export default defineConfig({
         laravel({
             input: "resources/js/app.tsx",
         }),
+        react()
     ],
     resolve: {
       alias: {
@@ -20,8 +21,8 @@ export default defineConfig({
       cors: true,
       hmr: {
         // host: '77.37.192.93',
-        host: '127.0.0.1',
-		    overlay: true,
+        host: "127.0.0.1",
+        overlay: true,
       },
-    }, 
+    },
 });

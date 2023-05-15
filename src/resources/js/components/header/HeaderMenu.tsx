@@ -11,10 +11,6 @@ import MenuItem from "@mui/material/MenuItem";
 import type {objectType, headerItem} from "@/types/common"
 
 function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: string, handleModalOpen}) {
-  
-  /* const toMain = () => {
-    router.visit("/", { method: "post" })
-  } */
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
