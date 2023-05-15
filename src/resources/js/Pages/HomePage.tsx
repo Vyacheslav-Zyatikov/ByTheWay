@@ -13,39 +13,6 @@ import { Link } from "@inertiajs/react";
 import { axios } from "@/app";
 import { restaurantType } from "@/types/common"
 
-/* const restaurants = [
-  {
-    id: 1,
-    title: "Чилим Seafood",
-    image: "https://images.unsplash.com/photo-1515669097368-22e68427d265?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
-    description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
-  },
-  {
-    id: 2,
-    title: "Lorem Ipsum",
-    image: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
-  },
-  {
-    id: 3,
-    title: "Lorem Ipsum",
-    image: "https://images.unsplash.com/photo-1494346480775-936a9f0d0877?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1116&q=80",
-    description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
-  },
-  {
-    id: 4,
-    title: "Lorem Ipsum",
-    image: "https://images.unsplash.com/photo-1521917441209-e886f0404a7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80",
-    description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
-  },
-  {
-    id: 5,
-    title: "Lorem Ipsum",
-    image: "https://images.unsplash.com/photo-1587574293340-e0011c4e8ecf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80",
-    description: "РЫБА, МОРЕПРОДУКТЫ. Проект-привет с Дальнего Востока. Содержателен с точки зрения белков. Харизматичен, как магаданская креветка. Вызывает привыкание к гребешку, крабу и вонголе. Кормим, поим, доставляем. Из Японского моря прямо в ваши тарелки!"
-  }
-]; */
-
 export default function HomePage() {
   const [restaurants, setRestaurants] = useState<restaurantType[]>([]);
 
