@@ -31,7 +31,7 @@ const headerTitle = {
 export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: boolean, handleModalOpen}) {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
     handleModalOpen(false);
   };
 

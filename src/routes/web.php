@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SpaController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CartController;
@@ -27,28 +28,11 @@ use Inertia\Inertia;
 // Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');
 Route::get('/', [SpaController::class, 'index']);
 Route::get('register', [RegisterController::class, 'index']);
-Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'])->where(['restaurant' => '[1-9][0-9]?']);
-/*
-Route::get('restaurants/{restaurant}', function (Restaurant $restaurant) {
 
-    return Inertia::render('Restaurant', [
-        'restaurant' => Restaurant::all()->map(function ($restaurant) {
-            return [
-                'id' => $restaurant->id,
-                'image' => $restaurant->image,
-                'title' => $restaurant->title,
-            ];
-        }),
-        'dishes' => Dish::all()->map(function ($dish) {
-            return [
-                'id' => $dish->id,
-                'image' => $dish->image,
-                'title' => $dish->title,
-            ];
-        }),
-    ]);
-})->where(['restaurant' => '[1-9][0-9]?']);
-*/
+Route::get('account', [AccountController::class, 'index']);
+
+Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'])->where(['restaurant' => '[1-9][0-9]?']);
+
 // Route::get('cart', [CartController::class, 'index']);
 // Route::delete('cart/{id}', [CartController::class,'destroy']);
 // Route::post('session', [SessionController::class,'add']);
