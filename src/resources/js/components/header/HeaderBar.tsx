@@ -1,5 +1,4 @@
 import * as React from "react";
-import { router } from "@inertiajs/react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,9 +7,9 @@ import Button from "@mui/material/Button";
 import HeaderMenu from "@/components/header/HeaderMenu";
 import Logo from "@/components/header/Logo";
 import AuthModal from "@/components/modal/AuthModal";
-import type {objectType, headerItem} from "@/types/common"
-import { useAppSelector } from "@/redux/store"
-
+import type {objectType, headerItem} from "@/types/common";
+import { useAppSelector } from "@/redux/store";
+import { Inertia } from "@inertiajs/inertia"
 
 const role = "guest";
 // const role = "restaurant";
@@ -28,13 +27,13 @@ const menu: objectType = {
 function HeaderBar() {
   // const user = useAppSelector(state => state.authReducer.user)
   const count = useAppSelector(state => state.cartReducer.count)
-  
+
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleModalOpen = (value) => setIsModalOpen(value);
 
   const handleNavMenu = (page) => {
-    router.visit(`/${page.url}`, { method: "get" })
+      Inertia.visit(`/${page.url}`, { method: "get" })
   }
 
   return (
@@ -42,7 +41,7 @@ function HeaderBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo></Logo>
-          
+
           <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
             {pages[role].map((page: headerItem) => (
               <Box key={page.code} sx={{position: "relative"}}>

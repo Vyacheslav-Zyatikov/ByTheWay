@@ -1,6 +1,9 @@
 @import './variables';
 @import './reset';
 @import './components/modals';
+@import "./pages/restaurant";
+@import "./pages/homepage";
+@import "./pages/order";
 
 * {
   font-family: 'Roboto', sans-serif;
@@ -10,9 +13,9 @@ body {
   font-weight: 400;
   color: $color-font;
   width: 100%;
-  margin: 0px;
+  margin: 0;
   scrollbar-width: thin;
-  scrollbar-color: #f3faf7;
+  scrollbar-color: #f3faf7 #646764;
 }
 body::-webkit-scrollbar {
   width: 8px;
