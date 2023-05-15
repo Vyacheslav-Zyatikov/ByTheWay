@@ -11,7 +11,9 @@ const style = {
 export default function Logo() {
 
   const toMain = () => {
-    router.visit('/', { method: "get" });
+    
+    router.visit("/", { method: "get" });
+
   }
 
   return (

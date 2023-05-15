@@ -1,4 +1,3 @@
-import "../../css/pages/_homepage.scss";
 import { useState, useEffect } from "react";
 import * as React from "react";
 import Button from "@mui/material/Button";
@@ -12,6 +11,7 @@ import Container from "@mui/material/Container";
 import { Link } from "@inertiajs/react";
 import { axios } from "@/app";
 import { restaurantType } from "@/types/common"
+
 
 export default function HomePage() {
   const [restaurants, setRestaurants] = useState<restaurantType[]>([]);
@@ -31,7 +31,7 @@ export default function HomePage() {
   useEffect(() => {
     getRestaurants();
   }, []);
-  
+
   return (
     <Box className="homepage">
         <Box
@@ -55,7 +55,7 @@ export default function HomePage() {
                 <Card
                   sx={{ height: "100%", display: "flex", flexDirection: "column" }}
                 >
-                  <Link className="homepage__image-wrapper" href={"/"}>
+                  <Link className="homepage__image-wrapper" href={`/restaurants/${card.id}`}>
                     <img className="homepage__image" src={`/images/${card.image}`} alt={card.title}/>
                   </Link>{" "}
                   <CardContent sx={{ flexGrow: 1 }}>
@@ -67,7 +67,9 @@ export default function HomePage() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="large">Смотреть</Button>
+                      <Link href={`/restaurants/${card.id}`}>
+                          <Button size="large">Смотреть</Button>
+                      </Link>
                   </CardActions>
                 </Card>
               </Grid>

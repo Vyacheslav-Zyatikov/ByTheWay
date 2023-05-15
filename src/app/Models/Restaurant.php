@@ -15,7 +15,8 @@ class Restaurant extends Model
         'id'
     ];
 
-    public function sections() {
+    public function sections(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
         return $this->hasMany(Section::class);
     }
 }
