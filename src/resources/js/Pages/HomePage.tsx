@@ -32,7 +32,7 @@ export default function HomePage() {
     getRestaurants();
   }, []);
 
-  return (
+    return (
     <Box className="homepage">
         <Box
           sx={{

@@ -12,9 +12,10 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { router } from "@inertiajs/react";
-import { Link } from "@inertiajs/react";
-import { axios } from "@/app";
+import {Inertia} from "@inertiajs/inertia";
+// import { router, Link } from "@inertiajs/react";
+// import { axios } from "@/app";
+
 
 function RegisterPage() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -26,22 +27,22 @@ function RegisterPage() {
   function dragStartHandler(e) {
     e.preventDefault();
     setDrag(true);
-  };
+  }
 
   function dragLeaveHandler(e) {
     e.preventDefault();
     setDrag(false);
-  };
+  }
 
   function dropHandler(e) {
     e.preventDefault();
-    let images = [...e.dataTransfer.files];
+    const images = [...e.dataTransfer.files];
     setImage(images[0]);
     setDrag(false);
-  };
+  }
 
   const register = () => {
-    router.visit('account', { method: "get" });
+    Inertia.visit("/account", { method: "get" });
   };
 
   return (
@@ -59,48 +60,48 @@ function RegisterPage() {
         sx={{mt: "20px", display: "flex", flexDirection: "column", alignItems: "center"}}
       >
         <Box>
-          <TextField id="outlined-basic" label="Наименование ресторана" variant="outlined" sx={{width: "600px"}}/>
+          <TextField id="restaurant-name" label="Наименование ресторана" variant="outlined" sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
-          <TextField id="outlined-textarea" label="Краткое описание ресторана: кухня, стилистика, атмосфера и пр." variant="outlined" multiline sx={{width: "600px"}}/>
+          <TextField id="restaurant-description" label="Краткое описание ресторана: кухня, стилистика, атмосфера и пр." variant="outlined" multiline sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
-          {drag 
+          {drag
             ? <Box
                 onDragStart={(e) => dragStartHandler(e)}
                 onDragLeave={(e) => dragLeaveHandler(e)}
                 onDragOver={(e) => dragStartHandler(e)}
                 onDrop={(e)=> dropHandler(e)}
-                sx={{ width: 600, height: 200, backgroundColor: 'primary.dark', '&:hover': {backgroundColor: 'primary.main', opacity: [0.9, 0.8, 0.7]}}}
+                sx={{ width: 600, height: 200, backgroundColor: "primary.dark", "&:hover": {backgroundColor: "primary.main", opacity: [0.9, 0.8, 0.7]}}}
               >
                 <Typography pt={10} variant="h5" align="center" color="text.secondary" paragraph>Отпустите файл, чтобы загрузить его</Typography>
               </Box>
-            : <Box 
-                onDragStart={(e) => dragStartHandler(e)} 
+            : <Box
+                onDragStart={(e) => dragStartHandler(e)}
                 onDragLeave={(e) => dragLeaveHandler(e)}
                 onDragOver={(e) => dragStartHandler(e)}
-                sx={{ width: 600, height: 200, backgroundColor: 'primary.dark', '&:hover': {backgroundColor: 'primary.main', opacity: [0.9, 0.8, 0.7]}}}
+                sx={{ width: 600, height: 200, backgroundColor: "primary.dark", "&:hover": {backgroundColor: "primary.main", opacity: [0.9, 0.8, 0.7]}}}
               >
                 <Typography pt={10} variant="h5" align="center" color="text.secondary" paragraph>Перетащите файл с изображением ресторана</Typography>
-              </Box>    
+              </Box>
           }
-          {image 
+          {image
             ? <Typography mt={1} variant="h5" align="center" color="green" paragraph>Изображение ресторана загружено</Typography>
-            : ''
+            : ""
           }
         </Box>
 
         <Box sx={{mt: "20px"}}>
-          <TextField id="outlined-basic" label="E-mail" variant="outlined" sx={{width: "600px"}}/>
+          <TextField id="restaurant-email" label="E-mail" variant="outlined" sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
           <FormControl sx={{width: "600px"}} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id="restaurant-password"
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
@@ -122,7 +123,7 @@ function RegisterPage() {
           <FormControl sx={{width: "600px"}} variant="outlined">
             <InputLabel htmlFor="outlined-adornment-password">Подтверждение пароля</InputLabel>
             <OutlinedInput
-              id="outlined-adornment-password"
+              id="restaurant-confirm-password"
               type={showPassword ? "text" : "password"}
               endAdornment={
                 <InputAdornment position="end">
