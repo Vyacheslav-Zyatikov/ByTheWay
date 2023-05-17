@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SpaController;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\CartController;
 // use App\Http\Controllers\SessionController;
@@ -19,12 +20,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Auth::routes();
+Auth::routes();
 
 // Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');
 Route::get('', [SpaController::class, 'index']);
 Route::get('register', [RegisterController::class, 'index']);
+Route::post('register', [RestaurantController::class, 'store']);
 Route::get('account', [AccountController::class, 'index']);
 
 // Route::delete('cart/{id}', [CartController::class,'destroy']);
 // Route::post('session', [SessionController::class,'add']);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

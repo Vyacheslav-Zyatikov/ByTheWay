@@ -9,7 +9,7 @@ import { store } from "./redux/store";
 
 import axiosInstance from "axios";
 export const axios = axiosInstance.create({
-  baseURL: "/api",
+  baseURL: "/",
 });
 
 createInertiaApp({

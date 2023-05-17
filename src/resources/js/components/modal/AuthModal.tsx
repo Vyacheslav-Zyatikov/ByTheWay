@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { router } from "@inertiajs/react";
+import { axios } from "@/app";
 
 const wrapper = {
   minWidth: 296,
@@ -34,6 +35,14 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
     setOpen(false);
     handleModalOpen(false);
   };
+
+  const login = () => {
+    axios.get('/sanctum/csrf-cookie').then(response => {
+      // Login...
+    });
+    handleClose();
+    router.visit('account', { method: "get" });
+  }
 
   const openRegister = () => {
     handleClose();
@@ -99,7 +108,7 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
                   </FormControl>
                 </Box>
 
-                <Button variant="contained" sx={{mt: "32px"}} size="large">
+                <Button onClick={() => login()} variant="contained" sx={{mt: "32px"}} size="large">
                   Войти
                 </Button>
               </Box>

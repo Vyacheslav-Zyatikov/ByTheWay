@@ -13,7 +13,6 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { router } from "@inertiajs/react";
-import { Link } from "@inertiajs/react";
 import { axios } from "@/app";
 
 function RegisterPage() {
@@ -21,7 +20,14 @@ function RegisterPage() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const [drag, setDrag] = React.useState(false);
-  const [image, setImage] = React.useState(null);
+  const [title, setTitle] = React.useState('');
+  const [image, setImage] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
+  const [confirmationError, setConfirmationError] = React.useState(false);
+  const [errMessage, setErrMessage] = React.useState('');
 
   function dragStartHandler(e) {
     e.preventDefault();
@@ -40,8 +46,50 @@ function RegisterPage() {
     setDrag(false);
   };
 
-  const register = () => {
-    router.visit('account', { method: "get" });
+  function confirmPassword() {
+    if (password === passwordConfirmation) {
+      setConfirmationError(false);
+    } else {
+      setConfirmationError(true);
+    }
+  };
+
+  const createRestaurant = (e) => {
+    e.preventDefault();
+
+    setErrMessage('');
+    confirmPassword();
+
+    if (!confirmationError) {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('image', image);
+      formData.append('description', description);
+      formData.append('email', email);
+      formData.append('password', password);
+  
+      axios.get('/sanctum/csrf-cookie').then(response => {
+        axios.post('/register', formData)
+        .then((res) => {
+          router.visit('account', { method: "get" });
+        })
+        .catch((err) => {
+          if (err.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            // console.log(error.response.data);
+            // console.log(error.response.status);
+            // console.log(error.response.headers);
+            setErrMessage(err.response.data.message);
+            console.log(err.response.data.message);
+          } else if (err.request) {
+            console.log('error.request: ', err.request);
+          } else {
+            console.log('Error: ', err.message);
+          }
+        });
+      });
+    }
   };
 
   return (
@@ -59,11 +107,11 @@ function RegisterPage() {
         sx={{mt: "20px", display: "flex", flexDirection: "column", alignItems: "center"}}
       >
         <Box>
-          <TextField id="outlined-basic" label="Наименование ресторана" variant="outlined" sx={{width: "600px"}}/>
+          <TextField id="outlined-basic" value={title} onChange={(e) => setTitle(e.target.value)} label="Наименование ресторана" variant="outlined" sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
-          <TextField id="outlined-textarea" label="Краткое описание ресторана: кухня, стилистика, атмосфера и пр." variant="outlined" multiline sx={{width: "600px"}}/>
+          <TextField id="outlined-textarea" value={description} onChange={(e) => setDescription(e.target.value)} label="Краткое описание ресторана: кухня, стилистика, атмосфера и пр." variant="outlined" multiline sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
@@ -93,7 +141,7 @@ function RegisterPage() {
         </Box>
 
         <Box sx={{mt: "20px"}}>
-          <TextField id="outlined-basic" label="E-mail" variant="outlined" sx={{width: "600px"}}/>
+          <TextField id="outlined-basic" value={email} onChange={(e) => setEmail(e.target.value)} label="E-mail" variant="outlined" sx={{width: "600px"}}/>
         </Box>
 
         <Box sx={{mt: "20px"}}>
@@ -113,6 +161,8 @@ function RegisterPage() {
                   </IconButton>
                 </InputAdornment>
               }
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               label="Password"
             />
           </FormControl>
@@ -135,12 +185,25 @@ function RegisterPage() {
                   </IconButton>
                 </InputAdornment>
               }
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
               label="Password"
             />
           </FormControl>
         </Box>
 
-        <Button onClick={() => register()} variant="contained" sx={{mt: "32px", width: "600px"}} size="large">
+        <Box sx={{mt: "20px", width: "600px"}}>
+        {confirmationError 
+          ? <Typography mt={1} variant="h5" align="center" color="red" paragraph>Пароль и его подтверждение должны совпадать</Typography>
+          : ''
+        }
+        {errMessage
+          ? <Typography mt={1} variant="h5" align="center" color="red" paragraph>{errMessage}</Typography>
+          : ''
+        }
+        </Box>  
+
+        <Button onClick={(e) => createRestaurant(e)} variant="contained" sx={{mt: "32px", width: "600px"}} size="large">
           Зарегистрироваться
         </Button>
       </Box>

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Resources\RestaurantResource;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RestaurantController extends Controller
 {
@@ -30,7 +33,25 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        $restaurant = Restaurant::create($request->all());
+        $request->validate([
+            'title' => 'required',
+            'image' => 'required|image',
+            'description' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $pass = Hash::make($request->password);
+        $imageName = Str::random() . '.' . $request->image->getClientOriginalExtension();
+        Storage::putFileAs('public/images', $request->image, $imageName);
+
+        $restaurant = Restaurant::make($request->post() + [
+            'image' => $imageName, 
+            'rate' => 9.5, 
+            'password' => $pass,
+        ]);
+        $restaurant->password = $pass;
+        $restaurant->save();
 
         return response()->json($restaurant,201);
     }
