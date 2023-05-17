@@ -8,8 +8,8 @@ use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
-    public function index() 
+    public function index()
     {
-        return inertia('RegisterPage');
+        return Inertia::render('RegisterPage');
     }
 }

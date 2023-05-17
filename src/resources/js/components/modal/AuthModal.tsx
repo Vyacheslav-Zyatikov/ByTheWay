@@ -12,7 +12,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { router } from "@inertiajs/react";
+import {Inertia} from "@inertiajs/inertia";
 
 const wrapper = {
   minWidth: 296,
@@ -37,7 +37,7 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
 
   const openRegister = () => {
     handleClose();
-    router.visit('register', { method: "get" });
+    Inertia.visit("/register", { method: "get" });
   }
 
   useEffect(() => {
