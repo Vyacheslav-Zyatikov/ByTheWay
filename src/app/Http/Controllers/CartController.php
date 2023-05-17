@@ -14,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+      // return inertia('CartPage');
     }
 
     /**
@@ -71,7 +71,7 @@ class CartController extends Controller
                 'count' => $request->count + $cart->count,
                 'created_at' => now()
             ]);
-        
+
        return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
     }
 

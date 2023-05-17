@@ -4,10 +4,10 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
     plugins: [
-      laravel({
-          input: "resources/js/app.tsx",
-      }),
-      react(),
+        laravel({
+            input: "resources/js/app.tsx",
+        }),
+        react()
     ],
     resolve: {
       alias: {
@@ -20,9 +20,9 @@ export default defineConfig({
       open: false,
       cors: true,
       hmr: {
-        // host: '77.37.192.93',
-        host: '127.0.0.1',
-		    overlay: true,
+        host: '77.37.192.93',
+        // host: "127.0.0.1",
+        overlay: true,
       },
-    }, 
+    },
 });
