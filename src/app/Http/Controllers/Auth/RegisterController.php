@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -26,8 +27,9 @@ class RegisterController extends Controller
     // use RegistersUsers;
 
     public function index() 
+
     {
-        return inertia('RegisterPage');
+        return Inertia::render('RegisterPage');
     }
 
     /**
