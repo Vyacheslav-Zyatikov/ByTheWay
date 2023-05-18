@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\DishController;
@@ -17,6 +18,14 @@ use App\Http\Controllers\CartController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+Route::middleware('auth:sanctum')->get('/restaurant', function (Request $request) {
+    return $request->restaurant();
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('account', [AccountController::class, 'index']);
+});
 
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);

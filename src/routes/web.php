@@ -23,12 +23,12 @@ use Inertia\Inertia;
 |
 */
 
-//Auth::routes();
+Auth::routes();
 
 // Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');
 Route::get('/', [SpaController::class, 'index']);
 Route::get('register', [RegisterController::class, 'index']);
-
+Route::post('register', [RestaurantController::class, 'store']);
 Route::get('account', [AccountController::class, 'index']);
 
 Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'])->where(['restaurant' => '[1-9][0-9]?']);
@@ -36,3 +36,5 @@ Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'
 // Route::get('cart', [CartController::class, 'index']);
 // Route::delete('cart/{id}', [CartController::class,'destroy']);
 // Route::post('session', [SessionController::class,'add']);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

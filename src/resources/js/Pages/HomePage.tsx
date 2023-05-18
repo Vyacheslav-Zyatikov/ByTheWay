@@ -17,7 +17,7 @@ export default function HomePage() {
   const [restaurants, setRestaurants] = useState<restaurantType[]>([]);
 
   const getRestaurants = async () => {
-    const url = "/restaurants"
+    const url = "api/restaurants"
     axios
       .get(url)
       .then(({data}) => {
@@ -56,7 +56,7 @@ export default function HomePage() {
                   sx={{ height: "100%", display: "flex", flexDirection: "column" }}
                 >
                   <Link className="homepage__image-wrapper" href={`/restaurants/${card.id}`}>
-                    <img className="homepage__image" src={`/images/${card.image}`} alt={card.title}/>
+                    <img className="homepage__image" src={`/storage/images/${card.image}`} alt={card.title}/>
                   </Link>{" "}
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
