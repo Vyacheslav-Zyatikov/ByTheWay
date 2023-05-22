@@ -29,7 +29,7 @@ function CardComponent ({card}: {card: dishType}) {
       sx={{ height: "100%", display: "flex", flexDirection: "column" }}
     >
       <div className="restaurant__card-image-wrapper">
-        <img className="restaurant__card-image" src={`/images/${card.image}`} alt={card.title}/>
+        <img className="restaurant__card-image" src={`/storage/images/${card.image}`} alt={card.title}/>
       </div>
       <CardContent sx={{ flexGrow: 1 }}>
         <h2>
@@ -60,7 +60,7 @@ export default function Restaurant({ restaurant, dishes }:{restaurant:restaurant
     return (
     <Box className="restaurant">
         <div className="restaurant__hero-image-wrapper">
-          <img className="restaurant__hero-image" src={`/images/${restaurant.image}`} alt={restaurant.title}/>
+          <img className="restaurant__hero-image" src={`/storage/images/${restaurant.image}`} alt={restaurant.title}/>
           <span className="restaurant__hero-title">{restaurant.title}</span>
         </div>
 
