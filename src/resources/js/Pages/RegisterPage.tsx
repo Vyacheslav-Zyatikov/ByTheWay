@@ -15,7 +15,6 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { router } from "@inertiajs/react";
 import { axios } from "@/app";
 import {Inertia} from "@inertiajs/inertia";
-// import { axios } from "@/app";
 
 function RegisterPage() {
   const [showPassword, setShowPassword] = React.useState(false);

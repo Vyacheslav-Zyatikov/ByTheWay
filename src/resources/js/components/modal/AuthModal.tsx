@@ -43,12 +43,12 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
       // Login...
     });
     handleClose();
-    Inertia.visit('/account', { method: "get" });
+    router.visit('/account', { method: "get" });
   }
 
   const openRegister = () => {
     handleClose();
-    Inertia.visit("/register", { method: "get" });
+    router.visit("/register", { method: "get" });
   }
 
   useEffect(() => {
