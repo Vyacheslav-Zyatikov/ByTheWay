@@ -31,7 +31,7 @@ class RestaurantController extends Controller
   public function indexRest(Restaurant $restaurant)
     {
         $dishesRaw = Dish::restaurantDish($restaurant->id)->get();
-        $dishes = $dishesRaw->groupBy('sec_id')->toArray();
+        $dishes = $dishesRaw->groupBy('sec_title')->toArray();
         //dd($dishes);
 
         return Inertia::render('RestaurantPage', [
