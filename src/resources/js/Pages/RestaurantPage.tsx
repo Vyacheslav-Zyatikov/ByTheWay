@@ -54,7 +54,7 @@ export default function RestaurantPage({ restaurant, dishes }:{restaurant:restau
     const count = useAppSelector(state => state.cartReducer.count)
 
   const createOrder = () => {
-      Inertia.visit("/cart");
+      Inertia.get("/cart");
   }
 
     return (
