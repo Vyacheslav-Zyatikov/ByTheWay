@@ -66,10 +66,17 @@ export default function RestaurantPage({ restaurant, dishes }:{restaurant:restau
 
         <Container sx={{ mt: "64px", mb: "48px", px: "0px !important" }} maxWidth="xl">
           <h1 className="restaurant__title">Наши блюда</h1>
-          <Grid container spacing={4}>
-            {dishes.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={3}>
-                <CardComponent card={card}></CardComponent>
+          <Grid container sx={{ mt: "15px", mb: "15px", px: "0px !important" }} maxWidth="xl">
+            {Object.entries(dishes).map(([key, value]) => (
+              <Grid container key={ key } sx={{ mt: "25px", mb: "25px", px: "0px !important" }}>
+                  <h2 className="section__title">{ key }</h2>
+                  <Grid container spacing={4}>
+                      {value.map((card) => (
+                          <Grid item key={card.id} xs={12} sm={6} md={3}>
+                              <CardComponent card={card}></CardComponent>
+                          </Grid>
+                      ))}
+                  </Grid>
               </Grid>
             ))}
           </Grid>

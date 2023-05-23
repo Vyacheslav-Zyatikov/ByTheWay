@@ -21,7 +21,7 @@ class Dish extends Model
            ->join('section', 'section_id', '=', 'section.id')
            ->select('dish.*', 'section.title as sec_title', 'section.id as sec_id')
            ->where('restaurant_id', '=', $id)
-           ->orderBy('sec_id');
+           ->orderBy('sec_title');
     }
 
     public function section() {
