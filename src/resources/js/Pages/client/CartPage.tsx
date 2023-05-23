@@ -6,11 +6,11 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
 import type {cartItemType} from "@/types/common"
 import { useAppSelector } from "@/redux/store";
 import IconPlus from "@/components/icons/IconPlus";
 import IconMinus from "@/components/icons/IconMinus";
+import { Inertia } from "@inertiajs/inertia";
 
 function CardComponent ({card}: {card: cartItemType}) {
   return (
@@ -45,13 +45,13 @@ function CardComponent ({card}: {card: cartItemType}) {
 }
 
 export default function Cart() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const cart = useAppSelector(state => state.cartReducer.cart)
 
   const createOrder = () => {
-    navigate(`${process.env.REACT_APP_REPO}/cart`);
+    Inertia.get("/cart");
   }
-  
+
   return (
     <Box className="restaurant">
         <Container sx={{ mt: "64px", mb: "48px", px: "0px !important" }} maxWidth="xl">

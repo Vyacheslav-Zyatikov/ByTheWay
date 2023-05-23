@@ -14,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-      // return inertia('CartPage');
+      return inertia('client/CartPage');
     }
 
     /**
