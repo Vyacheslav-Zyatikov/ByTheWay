@@ -17,18 +17,11 @@ class Dish extends Model
 
     public static function scopeRestaurantDish($query, $id)
     {
-       return $query
-           ->join('section', 'section_id', '=', 'section.id')
-           ->select('dish.id', 'dish.section_id', 'dish.title', 'dish.description', 'dish.image', 'dish.price')
-           ->where('restaurant_id', '=', $id);
-           //->selectRaw('SELECT id FROM section WHERE section.restaurant_id = $id')
-           //->dd();
-            //->where('restaurant_id', '=', $id);
-       /*
         return $query
-            ->join('section', 'section_id', '=', 'section.id')
-            ->where('restaurant_id', '=', $id)->dd();
-       */
+           ->join('section', 'section_id', '=', 'section.id')
+           ->select('dish.*', 'section.title as sec_title', 'section.id as sec_id')
+           ->where('restaurant_id', '=', $id)
+           ->orderBy('sec_title');
     }
 
     public function section() {

@@ -30,7 +30,8 @@ class RestaurantController extends Controller
 
   public function indexRest(Restaurant $restaurant)
     {
-        $dishes = Dish::restaurantDish($restaurant->id)->get();
+        $dishesRaw = Dish::restaurantDish($restaurant->id)->get();
+        $dishes = $dishesRaw->groupBy('sec_title')->toArray();
         //dd($dishes);
 
         return Inertia::render('RestaurantPage', [
@@ -66,8 +67,8 @@ class RestaurantController extends Controller
         Storage::putFileAs('public/images', $request->image, $imageName);
 
         $restaurant = Restaurant::make($request->post() + [
-            'image' => $imageName, 
-            'rate' => 9.5, 
+            'image' => $imageName,
+            'rate' => 9.5,
             'password' => $pass,
         ]);
         $restaurant->password = $pass;

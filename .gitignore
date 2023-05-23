@@ -6,6 +6,7 @@
 .env.example
 .gitconfig
 .idea
+alias.bash
 docker/logs/*
 docker/mysql/*
 docker/dms/mail-state/*
