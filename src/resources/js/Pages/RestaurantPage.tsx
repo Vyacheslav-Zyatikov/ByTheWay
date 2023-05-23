@@ -49,12 +49,12 @@ function CardComponent ({card}: {card: dishType}) {
   )
 }
 
-export default function Restaurant({ restaurant, dishes }:{restaurant:restaurantType, dishes:dishType}) {
+export default function RestaurantPage({ restaurant, dishes }:{restaurant:restaurantType, dishes:dishType}) {
 
     const count = useAppSelector(state => state.cartReducer.count)
 
   const createOrder = () => {
-      Inertia.visit("/cart");
+      Inertia.get("/cart");
   }
 
     return (

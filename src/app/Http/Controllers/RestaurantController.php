@@ -33,7 +33,7 @@ class RestaurantController extends Controller
         $dishes = Dish::restaurantDish($restaurant->id)->get();
         //dd($dishes);
 
-        return Inertia::render('Restaurant', [
+        return Inertia::render('RestaurantPage', [
             'restaurant' => $restaurant,
             'dishes' => $dishes,
         ]);
