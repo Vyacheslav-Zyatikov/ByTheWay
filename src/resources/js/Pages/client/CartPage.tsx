@@ -10,7 +10,7 @@ import type {cartItemType} from "@/types/common"
 import { useAppSelector } from "@/redux/store";
 import IconPlus from "@/components/icons/IconPlus";
 import IconMinus from "@/components/icons/IconMinus";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 
 function CardComponent ({card}: {card: cartItemType}) {
   return (
@@ -18,7 +18,7 @@ function CardComponent ({card}: {card: cartItemType}) {
       sx={{ height: "100%", display: "flex", flexDirection: "column" }}
     >
       <div className="restaurant__card-image-wrapper">
-        <img className="restaurant__card-image" src={card.image} alt={card.title}/>
+        <img className="restaurant__card-image" src={`/storage/images/${card.image}`} alt={card.title}/>
       </div>
       <CardContent sx={{ flexGrow: 1 }}>
         <h2>
@@ -49,7 +49,7 @@ export default function Cart() {
   const cart = useAppSelector(state => state.cartReducer.cart)
 
   const createOrder = () => {
-    Inertia.get("/cart");
+    router.visit("/cart");
   }
 
   return (

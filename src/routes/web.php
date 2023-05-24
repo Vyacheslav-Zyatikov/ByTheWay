@@ -36,5 +36,4 @@ Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'
 // Route::get('cart', [CartController::class, 'index']);
 // Route::delete('cart/{id}', [CartController::class,'destroy']);
 
-
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
