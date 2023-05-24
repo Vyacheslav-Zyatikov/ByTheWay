@@ -9,7 +9,7 @@ import Logo from "@/components/header/Logo";
 import AuthModal from "@/components/modal/AuthModal";
 import type {objectType, headerItem} from "@/types/common";
 import { useAppSelector } from "@/redux/store";
-import { Inertia } from "@inertiajs/inertia"
+import { router } from "@inertiajs/react";
 
 const role = "guest";
 // const role = "restaurant";
@@ -33,7 +33,7 @@ function HeaderBar() {
   const handleModalOpen = (value) => setIsModalOpen(value);
 
   const handleNavMenu = (page) => {
-      Inertia.visit(`/${page.url}`, { method: "get" })
+      router.visit(`/${page.url}`, { method: "get" })
   }
 
   return (

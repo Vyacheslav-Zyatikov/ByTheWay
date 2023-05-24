@@ -14,8 +14,6 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { router } from "@inertiajs/react";
 import { axios } from "@/app";
-import {Inertia} from "@inertiajs/inertia";
-
 
 const wrapper = {
   minWidth: 296,
@@ -39,16 +37,16 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
   };
 
   const login = () => {
-    axios.get('/sanctum/csrf-cookie').then(response => {
+    axios.get("/sanctum/csrf-cookie").then(response => {
       // Login...
     });
     handleClose();
-    Inertia.get('/account');
+    router.visit("/account");
   }
 
   const openRegister = () => {
     handleClose();
-    Inertia.get("/register");
+    router.visit("/register");
   }
 
   useEffect(() => {
