@@ -171,4 +171,4 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
     </div>
   );
 }
-
+  }
