@@ -78,7 +78,7 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
         }
       });
     });
-  }
+
 
   const openRegister = () => {
     handleClose();

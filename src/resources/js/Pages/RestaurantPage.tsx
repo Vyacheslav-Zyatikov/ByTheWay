@@ -9,7 +9,7 @@ import Container from "@mui/material/Container";
 import type {restaurantType, dishType} from "@/types/common";
 import { setCartCount, setCart } from "@/redux/reducers/cartReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from "@inertiajs/react";
 
 function CardComponent ({card}: {card: dishType}) {
   const count = useAppSelector(state => state.cartReducer.count)
@@ -54,7 +54,7 @@ export default function RestaurantPage({ restaurant, dishes }:{restaurant:restau
     const count = useAppSelector(state => state.cartReducer.count)
 
   const createOrder = () => {
-      Inertia.get("/cart");
+      router.visit("/cart");
   }
 
     return (
