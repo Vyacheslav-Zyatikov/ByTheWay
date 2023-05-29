@@ -9,10 +9,14 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import type {objectType, headerItem} from "@/types/common"
+import axios from "axios";
+import { router } from "@inertiajs/react";
+import { getTokenSourceMapRange } from "typescript";
 
 function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: string, handleModalOpen}) {
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [token, setToken] = React.useState('');
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -26,6 +30,38 @@ function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: 
     console.log("Редирект", page.code)
     handleCloseUserMenu();
   }
+
+  const goToAccount = (e) => {
+    e.preventDefault();
+    let restId = localStorage.getItem('restId');
+    router.visit(`../account/${restId}`, {method: 'get'});
+  }
+
+  const logout = (e) => {
+    e.preventDefault();
+    axios.post('/logout')
+    .then((res) => {
+      localStorage.removeItem('xsrf');
+      localStorage.removeItem('restId');
+      getToken();
+    })
+    .finally(() => {
+      router.visit('/', { method: "get" });
+    });
+  }
+
+  const getToken = async () => {
+    let token = localStorage.getItem('xsrf');
+    if (token) {
+      setToken(token);
+    } else {
+      setToken('');
+    }
+  };
+
+  React.useEffect(() => {
+    getToken();
+  });
 
   if (menu.length > 0) {
     return (
@@ -61,13 +97,34 @@ function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: 
     );
   }
   return (
-    <Button
-      onClick={() => handleModalOpen(true)}
-      variant="outlined"
-      sx={{ ml: 1, display: "block" }}
-    >
-      Для ресторанов
-    </Button>
+    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+      {token 
+      ? <Button
+          onClick={(e) => goToAccount(e)}
+          variant="outlined"
+          sx={{ ml: 1, display: "block" }}
+        >
+          Личный кабинет
+        </Button>
+      : <Button
+          onClick={() => handleModalOpen(true)}
+          variant="outlined"
+          sx={{ ml: 1, display: "block" }}
+        >
+          Для ресторанов
+        </Button>
+      }
+      {token
+      ? <Button
+          onClick={(e) => logout(e)}
+          variant="outlined"
+          sx={{ ml: 1, display: "block" }}
+        >
+          Выйти
+        </Button>
+      : ''
+      }
+    </Box>
   );
 }
 export default HeaderDropdown;

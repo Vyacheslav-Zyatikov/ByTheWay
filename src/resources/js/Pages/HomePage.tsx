@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "@inertiajs/react";
 import { axios } from "@/app";
-import { restaurantType } from "@/types/common"
+import { restaurantType } from "@/types/common";
 
 
 export default function HomePage() {

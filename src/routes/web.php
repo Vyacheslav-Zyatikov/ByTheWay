@@ -24,10 +24,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/{any}', [SpaController::class, 'index'])->where('any', '.*');
-Route::get('/', [SpaController::class, 'index']);
+Route::get('/', [SpaController::class, 'index'])->name('home');
 Route::get('register', [RegisterController::class, 'index']);
 Route::post('register', [RestaurantController::class, 'store']);
-Route::get('account', [AccountController::class, 'index']);
+Route::post('login', [RestaurantController::class, 'login']);
+// Route::get('account', [AccountController::class, 'index']);
+Route::middleware(['auth:restaurant'])->group(function(){
+    Route::get('account/{restaurantId}', [AccountController::class,'show'])->where(['restaurantId' => '[1-9][0-9]?']);
+});
+Route::get('menu/{restaurantId}', [AccountController::class,'showMenu'])->where(['restaurantId' => '[1-9][0-9]?']);
+Route::get('orders/{restaurantId}', [AccountController::class,'showOrders'])->where(['restaurantId' => '[1-9][0-9]?']);
 Route::get('cart', [CartController::class, 'index']);
 Route::get('order', [OrderController::class, 'index']);
 Route::post('session', [SessionController::class,'add']);
