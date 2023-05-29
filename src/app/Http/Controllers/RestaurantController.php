@@ -10,6 +10,7 @@ use App\Models\Section;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -28,7 +29,7 @@ class RestaurantController extends Controller
      * Display page.
      */
 
-  public function indexRest(Restaurant $restaurant)
+    public function indexRest(Restaurant $restaurant)
     {
         $dishesRaw = Dish::restaurantDish($restaurant->id)->get();
         $dishes = $dishesRaw->groupBy('sec_title')->toArray();
@@ -47,6 +48,46 @@ class RestaurantController extends Controller
     public function create()
     {
         //
+    }
+
+    public function login(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        // $restaurant = Restaurant::where('email', $request->email)->get();
+
+        // if ($restaurant && Hash::check($request->password, $restaurant->password)) {
+        //     $request->session()->regenerate();
+
+        //     return response()->json($restaurant, 200);
+        // }
+
+        if (Auth::guard('restaurant')->attempt($credentials)) {
+            /** @var \App\Models\Restaurant $restaurant **/
+            $restaurant = Auth::guard('restaurant')->user();
+            $token =  $restaurant->createToken('ByTheWay', ['restaurant'])->plainTextToken;
+            return response()->json(['restaurant' => $restaurant, 'token' => $token]);
+        }
+
+        // if (Auth::attempt($credentials)) {
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('dashboard');
+        // }
+
+        // return back()->withErrors([
+        //     'email' => 'The provided credentials do not match our records.',
+        // ])->onlyInput('email');
+
+        // return response()->json(true, 200);
+        return response()->json([
+            'errors' => [
+                'status' => 401,
+                'message' => 'Пользователь не авторизован',
+            ],
+        ]);
     }
 
     /**
@@ -74,7 +115,28 @@ class RestaurantController extends Controller
         $restaurant->password = $pass;
         $restaurant->save();
 
-        return response()->json($restaurant,201);
+        // event(new Registered($restaurant));
+         // Auth::guard('restaurant')->login($restaurant);
+        $credentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if (Auth::guard('restaurant')->attempt($credentials)) {
+            /** @var \App\Models\Restaurant $restaurant **/
+            $restaurant = Auth::guard('restaurant')->user();
+            $token =  $restaurant->createToken('ByTheWay', ['restaurant'])->plainTextToken;
+            return response()->json(['restaurant' => $restaurant, 'token' => $token]);
+        }
+
+        return response()->json([
+            'errors' => [
+                'status' => 401,
+                'message' => 'Пользователь не зарегистрирован',
+            ],
+        ]);
+
+        // return response()->json($restaurant, 201);
     }
 
     /**

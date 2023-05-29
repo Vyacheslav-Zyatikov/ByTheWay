@@ -18,18 +18,30 @@ use App\Http\Controllers\CartController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/restaurant', function (Request $request) {
-    return $request->restaurant();
+// Route::middleware(['auth:sanctum'])->group(function(){
+//     Route::get('account', function() {
+//         return 'Authenticated';
+//     });
+// });
+Route::middleware(['auth:restaurant'])->group(function(){
+    Route::get('account/{restaurantId}', [AccountController::class,'show'])->where(['restaurantId' => '[1-9][0-9]?']);
+    // Route::get('account/{restaurantId}', [AccountController::class,'getRestaurant']);
+    // Route::get('account', [AccountController::class, 'index']);
 });
+// Route::get('account', [AccountController::class, 'index'])->middleware(['auth:sanctum', 'abilities:restaurant']);
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('account', [AccountController::class, 'index']);
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+// Route::group(['middleware' => 'auth:sanctum'], function () {
+//     Route::get('account', [AccountController::class, 'index']);
+// });
 
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class,'show']);
+// Route::get('account/{restaurantId}', [AccountController::class,'getRestaurant']);
 // добавление
 Route::post('restaurants', [RestaurantController::class,'store']);
 // редактирование

@@ -10,6 +10,7 @@ import AuthModal from "@/components/modal/AuthModal";
 import type {objectType, headerItem} from "@/types/common";
 import { useAppSelector } from "@/redux/store";
 import { router } from "@inertiajs/react";
+import { Inertia } from "@inertiajs/inertia"
 
 const role = "guest";
 // const role = "restaurant";
@@ -27,7 +28,7 @@ const menu: objectType = {
 function HeaderBar() {
   // const user = useAppSelector(state => state.authReducer.user)
   const count = useAppSelector(state => state.cartReducer.count)
-
+  const [token, setToken] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleModalOpen = (value) => setIsModalOpen(value);
@@ -36,28 +37,74 @@ function HeaderBar() {
       router.visit(`/${page.url}`, { method: "get" })
   }
 
+  const goToRestMenu = (e) => {
+    e.preventDefault();
+    let restId = localStorage.getItem('restId');
+    router.visit(`../menu/${restId}`, {method: 'get'});
+  }
+
+  const goToRestOrders = (e) => {
+    e.preventDefault();
+    let restId = localStorage.getItem('restId');
+    router.visit(`../orders/${restId}`, {method: 'get'});
+  }
+
+  const getToken = async () => {
+    let token = localStorage.getItem('xsrf');
+    if (token) {
+      setToken(token);
+    } else {
+      setToken('');
+    }
+  };
+
+  React.useEffect(() => {
+    getToken();
+  });
+
   return (
     <AppBar position="sticky" color="default">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo></Logo>
 
-          <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
-            {pages[role].map((page: headerItem) => (
-              <Box key={page.code} sx={{position: "relative"}}>
-                <Button
-                  onClick={() => handleNavMenu(page)}
-                  sx={{ mx: 1, display: "block" }}
-                >
-                  {page.label}
-                </Button>
-                {page.code === "GuestCart" && count !== 0
-                  ? <Box className="count" sx={{position: "absolute", top: "-6px", right: "2px"}}>{count}</Box>
-                  : null
-                }
-              </Box>
-            ))}
-          </Box>
+          {token
+          ? <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+            <Box>
+              <Button
+                onClick={(e) => goToRestOrders(e)}
+                sx={{ mx: 1, display: "block" }}
+              >
+                Заказы
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                onClick={(e) => goToRestMenu(e)}
+                sx={{ mx: 1, display: "block" }}
+              >
+                Меню
+              </Button>
+            </Box>
+        </Box>
+          : <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+              {pages[role].map((page: headerItem) => (
+                <Box key={page.code} sx={{position: "relative"}}>
+                  <Button
+                    onClick={() => handleNavMenu(page)}
+                    sx={{ mx: 1, display: "block" }}
+                  >
+                    {page.label}
+                  </Button>
+                  {page.code === "GuestCart" && count !== 0
+                    ? <Box className="count" sx={{position: "absolute", top: "-6px", right: "2px"}}>{count}</Box>
+                    : null
+                  }
+                </Box>
+              ))}
+            </Box>
+          }
+
 
           <HeaderMenu menu={menu} role={role} handleModalOpen={handleModalOpen}></HeaderMenu>
         </Toolbar>

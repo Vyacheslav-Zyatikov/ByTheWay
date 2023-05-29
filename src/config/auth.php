@@ -16,6 +16,8 @@ return [
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
+        // 'guard' => 'restaurant',
+        // 'passwords' => 'restaurant',
     ],
 
     /*
@@ -40,6 +42,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'restaurant',
+            'hash' => false,
+        ],
+        'restaurant' => [
+            'driver' => 'session',
+            'provider' => 'restaurant',
+        ],
     ],
 
     /*
@@ -63,6 +74,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'restaurant' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Restaurant::class,
         ],
 
         // 'users' => [
@@ -93,6 +108,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'restaurant' => [
+            'provider' => 'restaurant',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

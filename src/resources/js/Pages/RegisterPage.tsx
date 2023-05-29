@@ -70,9 +70,16 @@ function RegisterPage() {
       formData.append('password', password);
   
       axios.get('/sanctum/csrf-cookie').then(response => {
-        axios.post('/register', formData)
+        axios.post('register', formData)
         .then((res) => {
-          router.visit('account', { method: "get" });
+          console.log(res);
+          if (res.data.errors) {
+            setErrMessage(res.data.errors.message);
+          } else {
+            localStorage.setItem('xsrf', res.config.headers['X-XSRF-TOKEN']);
+            localStorage.setItem('restId', res.data.restaurant.id);
+            router.visit(`account/${res.data.restaurant.id}`, {method: 'get'});
+          }
         })
         .catch((err) => {
           if (err.response) {
@@ -82,7 +89,7 @@ function RegisterPage() {
             // console.log(error.response.status);
             // console.log(error.response.headers);
             setErrMessage(err.response.data.message);
-            console.log(err.response.data.message);
+            console.log('error.response: ', err.response.data.message);
           } else if (err.request) {
             console.log('error.request: ', err.request);
           } else {
