@@ -64,11 +64,6 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
       })
       .catch((err) => {
         if (err.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          // console.log(error.response.data);
-          // console.log(error.response.status);
-          // console.log(error.response.headers);
           setErrMessage(err.response.data.message);
           console.log('error.response: ', err.response.data.message);
         } else if (err.request) {
@@ -78,6 +73,7 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
         }
       });
     });
+  }
 
 
   const openRegister = () => {
@@ -171,4 +167,3 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
     </div>
   );
 }
-  }
