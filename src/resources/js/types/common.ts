@@ -19,6 +19,13 @@ export type restaurantType = {
   rate: string,
 }
 
+export type sectionType = {
+  id: number,
+  restaurant_id: number,
+  title: string,
+  dishes: Array<[]>,
+}
+
 export type dishType = {
   id: number | null,
   section_id?: string,

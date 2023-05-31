@@ -50,8 +50,10 @@ function RegisterPage() {
   function confirmPassword() {
     if (password === passwordConfirmation) {
       setConfirmationError(false);
+      localStorage.setItem('confirmationError', 'false');
     } else {
       setConfirmationError(true);
+      localStorage.setItem('confirmationError', 'true');
     }
   };
 
@@ -60,8 +62,9 @@ function RegisterPage() {
 
     setErrMessage('');
     confirmPassword();
+    let confirmError = localStorage.getItem('confirmationError');
 
-    if (!confirmationError) {
+    if (confirmError === 'false') {
       const formData = new FormData();
       formData.append('title', title);
       formData.append('image', image);
@@ -97,6 +100,7 @@ function RegisterPage() {
           }
         });
       });
+      localStorage.removeItem('confirmationError');
     }
   };
 
