@@ -75,7 +75,6 @@ function RegisterPage() {
       axios.get('/sanctum/csrf-cookie').then(response => {
         axios.post('register', formData)
         .then((res) => {
-          console.log(res);
           if (res.data.errors) {
             setErrMessage(res.data.errors.message);
           } else {

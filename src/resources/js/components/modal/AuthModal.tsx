@@ -52,7 +52,6 @@ export default function AuthModal({isModalOpen, handleModalOpen}: {isModalOpen: 
     axios.get('/sanctum/csrf-cookie').then(response => {
       axios.post('login', formData)
       .then((res) => {
-        console.log(res);
         if (res.data.errors) {
           setErrMessage(res.data.errors.message);
         } else {
