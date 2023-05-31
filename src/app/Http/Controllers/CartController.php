@@ -56,15 +56,15 @@ class CartController extends Controller
     {
 
         $validated = $request->validate([
-            'section_id' => 'required|exists:session,id',
+            'session_id' => 'required|exists:session,id',
             'dish_id' => 'required|exists:dish,id',
         ]);
 
-        $section_id = $validated['section_id'];
+        $session_id = $validated['session_id'];
         $dish_id = $validated['dish_id'];
 
         $cart = DB::table('dish_session')
-            ->where('section_id', $section_id)
+            ->where('session_id', $session_id)
             ->where('dish_id', $dish_id)
             ->update([
                 'price' => $request->price + $cart->price,
@@ -86,7 +86,7 @@ class CartController extends Controller
             ->get();
             if($cart){
                 $cart->delete();
-                return response()->json(['message' => 'Блюдо удалено из корзины'],200);
+                return response()->json(['message' => 'Корзина очищена'],200);
             }else{
                 return response()->json([
                     'message' => 'Данной корзины не существует',
@@ -103,15 +103,15 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $validated = $request->validate([
-            'section_id' => 'required|exists:session,id',
+            'session_id' => 'required|exists:session,id',
             'dish_id' => 'required|exists:dish,id',
         ]);
 
-        $section_id = $validated['section_id'];
+        $session_id = $validated['session_id'];
         $dish_id = $validated['dish_id'];
 
         $cart = DB::table('dish_session')->insert([
-            'section_id' => $section_id,
+            'session_id' => $session_id,
             'dish_id' => $dish_id,
             'price' => $request->price,
             'count' => 1,
@@ -123,5 +123,26 @@ class CartController extends Controller
             return json_encode($cart, JSON_UNESCAPED_UNICODE);
         } else return 'С корзиной что то не так';
 
+    }
+
+    public function deldish(Request $request, Cart $cart){
+        $validated = $request->validate([
+            'session_id' => 'required|exists:session,id',
+            'dish_id' => 'required|exists:dish,id',
+        ]);
+
+        $session_id = $validated['session_id'];
+        $dish_id = $validated['dish_id'];
+
+        $cart = DB::table('dish_session')
+            ->where('session_id', $session_id)
+            ->where('dish_id', $dish_id)
+            ->update([
+                'price' => $cart->price - $request->price,
+                'count' => $cart->count - $request->count,
+                'created_at' => now()
+            ]);
+
+       return response()->json(['message' => 'Блюдо удалено из корзины'],200);
     }
 }

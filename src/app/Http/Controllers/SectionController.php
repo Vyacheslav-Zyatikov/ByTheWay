@@ -75,4 +75,11 @@ class SectionController extends Controller
 
         return SectionResource::collection($restaurant->sections()->get());
     }
+
+    public function getRestaurantOrders($id) 
+    {
+        // $restaurant = new RestaurantResource(Restaurant::with(['sections.dishes'])->findOrFail($id));
+
+        // return SectionResource::collection($restaurant->sections()->get());
+    }
 }

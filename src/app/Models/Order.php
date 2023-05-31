@@ -18,4 +18,8 @@ class Order extends Model
     public function sessions() {
         return $this->hasMany(Session::class);
     }
+
+    public function dish_order() {
+        return $this->hasMany(DishOrder::class);
+    }
 }
