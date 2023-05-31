@@ -11,7 +11,7 @@ class DishOrderResource extends JsonResource
         return [
             'id' => $this->id,
             'order_id' => $this->order_id,
-            //'dish_id' => $this->dish_id,
+            'dish_id' => $this->dish_id,
             'price' => $this->price,
             'count' => $this->count,
             'value' => $this->value,

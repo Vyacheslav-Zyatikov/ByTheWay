@@ -28,7 +28,12 @@ class Dish extends Model
         return $this->belongsTo(Section::class);
     }
 
+    public function dish_order() {
+        return $this->hasMany(DishOrder::class);
+    }
+
     public function dish_session() {
         return $this->hasMany(Cart::class);
     }
+
 }

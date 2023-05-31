@@ -62,4 +62,8 @@ Route::get('cart/{cart}', [CartController::class,'show']);
 //создание корзины
 Route::post('cart',[CartController::class,'create']);
 //добавление нового блюда
-Route::put('cart/{cart}', [CartController::class,'update']);
+Route::put('cart/{dish}', [CartController::class,'update']);
+// удаление
+Route::delete('cart/{cart}', [DishController::class,'destroy']);
+//удаление блюда изкорзины
+Route::delete('cart/{dish}',[DishController::class,'deldish']);
