@@ -1,7 +1,9 @@
 import axios from "axios";
 import * as React from "react";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "@inertiajs/react";
 
 function AccountPage({ restaurant }) {
     return (
@@ -13,6 +15,9 @@ function AccountPage({ restaurant }) {
             </div>
             <Typography mt={2} gutterBottom variant="h5" component="h2">{restaurant.data.title}</Typography>
             <Typography>{restaurant.data.description}</Typography>
+            <Link href={`#`}>
+                <Button sx={{ mt: 3, display: "block" }} variant="outlined" size="large">Изменить</Button>
+            </Link>
         </Box>
     );
 }
