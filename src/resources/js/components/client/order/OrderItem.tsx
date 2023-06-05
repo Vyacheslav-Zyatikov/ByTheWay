@@ -34,9 +34,7 @@ export default function OrderItem ({order}: {order: orderType}) {
   }
 
   return (
-    <Card
-      sx={{ height: "100%", display: "flex", flexDirection: "column", mb: "24px", }}
-    >
+    <Card sx={{ height: "100%", display: "flex", flexDirection: "column", mb: "24px"}}>
       <List
       sx={{ width: "100%", bgcolor: "background.paper" }}
       component="nav"
@@ -94,7 +92,6 @@ export default function OrderItem ({order}: {order: orderType}) {
           </ListItemButton>
           : null
         }
-
       </List>
     </Card>
   )

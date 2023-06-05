@@ -66,6 +66,7 @@ export type orderType = {
   session_id: number,
   restaurant_id: number,
   restaurant?: string,
+  userPhone?: string,
   total: number | null,
   status: string,
   dishes: orderItemType[],

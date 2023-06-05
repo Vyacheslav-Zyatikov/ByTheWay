@@ -53,28 +53,28 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart)
-    {
+    // public function update(Request $request, Cart $cart)
+    // {
 
-        $validated = $request->validate([
-            'session_id' => 'required|exists:session,id',
-            'dish_id' => 'required|exists:dish,id',
-        ]);
+    //     $validated = $request->validate([
+    //         'session_id' => 'required|exists:session,id',
+    //         'dish_id' => 'required|exists:dish,id',
+    //     ]);
 
-        $session_id = $validated['session_id'];
-        $dish_id = $validated['dish_id'];
+    //     $session_id = $validated['session_id'];
+    //     $dish_id = $validated['dish_id'];
 
-        $cart = DB::table('dish_session')
-            ->where('session_id', $session_id)
-            ->where('dish_id', $dish_id)
-            ->update([
-                'price' => $request->price + $cart->price,
-                'count' => $request->count + $cart->count,
-                'created_at' => now()
-            ]);
+    //     $cart = DB::table('dish_session')
+    //         ->where('session_id', $session_id)
+    //         ->where('dish_id', $dish_id)
+    //         ->update([
+    //             'price' => $request->price + $cart->price,
+    //             'count' => $request->count + $cart->count,
+    //             'created_at' => now()
+    //         ]);
 
-        return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
-    }
+    //     return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -85,7 +85,7 @@ class CartController extends Controller
             $cart = Cart::findOrFail($id);
             $cart->delete();
             return response()->json(['message' => 'Блюдо удалено из корзины'], 200);
-        } catch(Exception $e){
+        } catch (Exception $e) {
             return response()->json(array('message'=>$e->getMessage()));
         }
     }

@@ -9,21 +9,15 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<orderType[]>([])
 
   const getOrders = async () => {
-    let ordersFromStorage = sessionStorage.getItem('orders');
-    if (ordersFromStorage) {
-      let orders = JSON.parse(ordersFromStorage).map((order) =>{
-        let restId = order.restaurant_id;
-        axios.get(`../api/restaurants/${restId}`)
+    let sessionId = sessionStorage.getItem('sessionId');
+    axios
+        .get(`../api/sessionOrders/${sessionId}`)
         .then((res) => {
-          order.restaurant = res.data.data.title;
+            setOrders(res.data.data);
         })
         .catch((error) => {
-          console.log('Ошибка:', error);
+            console.log(error);
         });
-        return order;
-      });
-      setOrders(orders);
-    }
   };
 
   const setStatus = async () => {
@@ -40,7 +34,7 @@ export default function OrdersPage() {
         <Container sx={{ mt: "64px", mb: "48px", px: "0px !important" }} maxWidth="xl">
           <h1 className="restaurant__title">Заказы</h1>
           { orders.length === 0
-            ? <h3>Вы еще ничего не добавили</h3>
+            ? <h3>Здесь будут ваши заказы</h3>
             : null
           }
             {orders.map((order) => (

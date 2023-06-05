@@ -15,6 +15,14 @@ class Order extends Model
         'id'
     ];
 
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    public function session() {
+        return $this->belongsTo(Session::class);
+    }
+
     public function sessions() {
         return $this->hasMany(Session::class);
     }

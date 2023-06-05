@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
-use App\Http\Resources\RestaurantResource;
-use App\Http\Resources\OrderResource;
 use App\Models\Restaurant;
+use App\Models\Session;
+use App\Http\Resources\OrderResource;
+use App\Http\Resources\RestaurantResource;
+use App\Http\Resources\SessionResource;
+use Exception;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -22,7 +25,14 @@ class OrderController extends Controller
     {
         $restaurant = new RestaurantResource(Restaurant::with(['orders.dish_orders', 'orders.dish_orders.dish'])->findOrFail($id));
 
-        return OrderResource::collection($restaurant->orders()->get());
+        return OrderResource::collection($restaurant->orders()->orderBy('id', 'desc')->get());
+    }
+
+    public function getSessionOrders($id)
+    {
+        $session = new SessionResource(Session::with(['orders.dish_orders', 'orders.dish_orders.dish'])->findOrFail($id));
+
+        return OrderResource::collection($session->orders()->orderBy('id', 'desc')->get());
     }
 
     /**
@@ -71,6 +81,18 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+    }
+
+    public function updateStatus(Request $request)
+    {
+        try {
+            $order = Order::findOrFail((int)$request->id);
+            $order->status = $request->status;
+            $order->save();
+            return response()->json(['message' => 'Статус заказа изменен'], 200);
+        } catch (Exception $e) {
+            return response()->json(array('message'=>$e->getMessage()));
+        }
     }
 
     /**

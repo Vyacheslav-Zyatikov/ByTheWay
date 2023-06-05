@@ -10,6 +10,7 @@ use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,12 @@ Route::get('cartValue/{sessionId}', [SessionController::class, 'getSessionDishes
 Route::delete('cart/{dishSessionId}', [CartController::class,'destroy']); // удалить блюдо из корзины по id записи в таблице dish_session
 /*** ЗАКАЗЫ ***/
 Route::get('orders/{restaurantId}', [OrderController::class,'getRestaurantOrders']); // получить список заказов ресторана по id
+Route::get('sessionOrders/{sessionId}', [OrderController::class,'getSessionOrders']); // получить список заказов юзера по id сессии
 Route::post('order', [OrderController::class,'store']); // создать заказ
+Route::post('orders/{orderId}', [OrderController::class,'updateStatus']); // изменить статус заказа
 Route::post('dishOrder', [DishOrderController::class,'store']); // добавить блюда в заказ
+/*** ЮЗЕРЫ ***/
+Route::post('users/{sessionId}', [UserController::class,'updatePhone']); // изменить телефон юзера по id сессии 
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class,'show']);

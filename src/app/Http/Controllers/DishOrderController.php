@@ -41,7 +41,7 @@ class DishOrderController extends Controller
             $dishOrder->save();
         };
 
-        return response()->json(['message' => 'Блюда добавлены в заказ'], 201);;
+        return response()->json(['message' => 'Блюда добавлены в заказ'], 201);
     }
 
     /**
