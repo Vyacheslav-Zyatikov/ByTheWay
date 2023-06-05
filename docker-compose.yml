@@ -28,6 +28,7 @@ services:
       - laravel-cron
       - phpmyadmin
       - mailserver
+      - laravel-echo-server
     networks:
       - laravel
 
@@ -73,8 +74,17 @@ services:
     restart: unless-stopped
     ports:
       - "6380:6379"
+    volumes:
+      - ./src:/var/www/html
+      - .env:/var/www/html/.env
     networks:
       - laravel
+    healthcheck:
+      test: redis-cli -h redis -p 6379 ping
+      start_period: 3s
+      interval: 2s
+      timeout: 2s
+      retries: 10
 
   laravel-cron:
     build:
@@ -247,3 +257,20 @@ services:
     entrypoint: ['npm']
     networks:
       - laravel
+
+  laravel-echo-server:
+    image: oanhnn/laravel-echo-server:latest
+    container_name: laravel-echo-server
+    depends_on:
+      - redis
+    networks:
+      - laravel
+    ports:
+      - "6001:6001"
+    restart: unless-stopped
+    healthcheck:
+      test: node /usr/local/src/healthcheck.js
+      start_period: 5s
+      interval: 3s
+      timeout: 3s
+      retries: 10

@@ -6,11 +6,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import HeaderMenu from "@/components/header/HeaderMenu";
 import Logo from "@/components/header/Logo";
+import OrderStatus from "@/components/header/OrderStatus";
 import AuthModal from "@/components/modal/AuthModal";
 import type {objectType, headerItem} from "@/types/common";
 import { useAppSelector } from "@/redux/store";
 import { router } from "@inertiajs/react";
-import { Inertia } from "@inertiajs/inertia"
 
 const role = "guest";
 // const role = "restaurant";
@@ -28,7 +28,7 @@ const menu: objectType = {
 function HeaderBar() {
   // const user = useAppSelector(state => state.authReducer.user)
   const count = useAppSelector(state => state.cartReducer.count)
-  const [token, setToken] = React.useState('');
+  const [token, setToken] = React.useState("");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleModalOpen = (value) => setIsModalOpen(value);
@@ -39,22 +39,22 @@ function HeaderBar() {
 
   const goToRestMenu = (e) => {
     e.preventDefault();
-    let restId = localStorage.getItem('restId');
-    router.visit(`../menu/${restId}`, {method: 'get'});
+    const restId = localStorage.getItem("restId");
+    router.visit(`../menu/${restId}`, {method: "get"});
   }
 
   const goToRestOrders = (e) => {
     e.preventDefault();
-    let restId = localStorage.getItem('restId');
-    router.visit(`../orders/${restId}`, {method: 'get'});
+    const restId = localStorage.getItem("restId");
+    router.visit(`../orders/${restId}`, {method: "get"});
   }
 
   const getToken = async () => {
-    let token = localStorage.getItem('xsrf');
+    const token = localStorage.getItem("xsrf");
     if (token) {
       setToken(token);
     } else {
-      setToken('');
+      setToken("");
     }
   };
 
@@ -67,9 +67,11 @@ function HeaderBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo></Logo>
-
+            <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center"}}>
+                <OrderStatus></OrderStatus>
+            </Box>
           {token
-          ? <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+          ? <Box sx={{ flexGrow: "inline", display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
             <Box>
               <Button
                 onClick={(e) => goToRestOrders(e)}
@@ -87,7 +89,7 @@ function HeaderBar() {
               </Button>
             </Box>
         </Box>
-          : <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+          : <Box sx={{ flexGrow: "inline", display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
               {pages[role].map((page: headerItem) => (
                 <Box key={page.code} sx={{position: "relative"}}>
                   <Button
@@ -104,7 +106,6 @@ function HeaderBar() {
               ))}
             </Box>
           }
-
 
           <HeaderMenu menu={menu} role={role} handleModalOpen={handleModalOpen}></HeaderMenu>
         </Toolbar>

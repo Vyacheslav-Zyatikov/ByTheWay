@@ -45,7 +45,6 @@ function CardComponent ({card}: {card: cartItemType}) {
 }
 
 export default function Cart() {
-  // const navigate = useNavigate();
   const cart = useAppSelector(state => state.cartReducer.cart)
 
   const createOrder = () => {

@@ -42,13 +42,13 @@ export default function OrdersPage() {
   useEffect(() => {
     setOrders(ordersMock());
   }, []);
-  
+
   return (
     <Box className="restaurant">
         <Container sx={{ mt: "64px", mb: "48px", px: "0px !important" }} maxWidth="xl">
           <h1 className="restaurant__title">Заказы</h1>
           { orders.length === 0
-            ? <h3>Вы еще ничего не добавили</h3>
+            ? <h3>Вы еще ничего не заказали</h3>
             : null
           }
             {orders.map((order) => (

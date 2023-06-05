@@ -1,5 +1,6 @@
 import "../css/App.scss";
 import "./bootstrap";
+import "./status-listen"
 import { createInertiaApp } from "@inertiajs/react";
 import React from "react";
 import { createRoot } from "react-dom/client"
@@ -14,10 +15,8 @@ export const axios = axiosInstance.create({
 
 createInertiaApp({
   resolve: name => {
-    // eslint-disable-next-line
-    // @ts-ignore
     const pages = import.meta.glob("./Pages/**/*.tsx", { eager: true })
-    const page = pages[`./Pages/${name}.tsx`]
+    const page:any = pages[`./Pages/${name}.tsx`]
     page.default.layout = page.default.layout || (page => (
       <Provider store={store}>
         {/* eslint-disable-next-line */}

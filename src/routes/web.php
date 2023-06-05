@@ -35,11 +35,9 @@ Route::middleware(['auth:restaurant'])->group(function(){
 Route::get('menu/{restaurantId}', [AccountController::class,'showMenu'])->where(['restaurantId' => '[1-9][0-9]?']);
 Route::get('orders/{restaurantId}', [AccountController::class,'showOrders'])->where(['restaurantId' => '[1-9][0-9]?']);
 Route::get('cart', [CartController::class, 'index']);
+Route::delete('cart/{id}', [CartController::class,'destroy']);
 Route::get('order', [OrderController::class, 'index']);
 Route::post('session', [SessionController::class,'add']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'])->where(['restaurant' => '[1-9][0-9]?']);
-
-// Route::get('cart', [CartController::class, 'index']);
-// Route::delete('cart/{id}', [CartController::class,'destroy']);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -15,7 +15,7 @@ import { getTokenSourceMapRange } from "typescript";
 function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: string, handleModalOpen}) {
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const [token, setToken] = React.useState('');
+  const [token, setToken] = React.useState("");
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -32,29 +32,29 @@ function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: 
 
   const goToAccount = (e) => {
     e.preventDefault();
-    let restId = localStorage.getItem('restId');
-    router.visit(`../account/${restId}`, {method: 'get'});
+    const restId = localStorage.getItem("restId");
+    router.visit(`../account/${restId}`, {method: "get"});
   }
 
   const logout = (e) => {
     e.preventDefault();
-    axios.post('/logout')
+    axios.post("/logout")
     .then((res) => {
-      localStorage.removeItem('xsrf');
-      localStorage.removeItem('restId');
+      localStorage.removeItem("xsrf");
+      localStorage.removeItem("restId");
       getToken();
     })
     .finally(() => {
-      router.visit('/', { method: "get" });
+      router.visit("/", { method: "get" });
     });
   }
 
   const getToken = async () => {
-    let token = localStorage.getItem('xsrf');
+    const token = localStorage.getItem("xsrf");
     if (token) {
       setToken(token);
     } else {
-      setToken('');
+      setToken("");
     }
   };
 
@@ -96,8 +96,8 @@ function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: 
     );
   }
   return (
-    <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
-      {token 
+    <Box sx={{ flexGrow: "initial", display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+      {token
       ? <Button
           onClick={(e) => goToAccount(e)}
           variant="outlined"
@@ -121,7 +121,7 @@ function HeaderDropdown({menu, role, handleModalOpen}: {menu: objectType, role: 
         >
           Выйти
         </Button>
-      : ''
+      : ""
       }
     </Box>
   );
