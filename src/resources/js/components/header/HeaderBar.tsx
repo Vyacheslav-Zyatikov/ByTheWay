@@ -6,6 +6,7 @@ import Container, { getContainerUtilityClass } from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import HeaderMenu from "@/components/header/HeaderMenu";
 import Logo from "@/components/header/Logo";
+import OrderStatus from "@/components/header/OrderStatus";
 import AuthModal from "@/components/modal/AuthModal";
 import Typography from "@mui/material/Typography";
 import type {objectType, headerItem} from "@/types/common";
@@ -111,9 +112,11 @@ function HeaderBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Logo></Logo>
-
+            <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "center"}}>
+                <OrderStatus></OrderStatus>
+            </Box>
           {token
-          ? <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+          ? <Box sx={{ flexGrow: "inline", display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
             <Box>
               <Button
                 onClick={(e) => goToRestOrders(e)}
@@ -131,7 +134,7 @@ function HeaderBar() {
               </Button>
             </Box>
         </Box>
-          : <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
+          : <Box sx={{ flexGrow: "inline", display: "flex", justifyContent: "flex-end", marginRight: "8px" }}>
               {pages[role].map((page: headerItem) => (
                 <Box key={page.code} sx={{position: "relative"}}>
                   <Button

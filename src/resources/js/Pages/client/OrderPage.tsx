@@ -28,7 +28,7 @@ export default function OrdersPage() {
     getOrders();
     setStatus();
   }, []);
-  
+
   return (
     <Box className="restaurant">
         <Container sx={{ mt: "64px", mb: "48px", px: "0px !important" }} maxWidth="xl">

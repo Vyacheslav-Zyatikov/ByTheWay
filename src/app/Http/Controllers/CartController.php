@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +14,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        return inertia('client/CartPage');
+      return inertia('client/CartPage');
     }
 
     /**
@@ -39,7 +38,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        // return new CartResource(Cart::findOrFail($dish_session->id));
+        return new CartResource(Cart::findOrFail($dish_session->id));
     }
 
     /**
@@ -53,41 +52,52 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request, Cart $cart)
-    // {
+    public function update(Request $request, Cart $cart)
+    {
 
-    //     $validated = $request->validate([
-    //         'session_id' => 'required|exists:session,id',
-    //         'dish_id' => 'required|exists:dish,id',
-    //     ]);
+        $validated = $request->validate([
+            'session_id' => 'required|exists:session,id',
+            'dish_id' => 'required|exists:dish,id',
+        ]);
 
-    //     $session_id = $validated['session_id'];
-    //     $dish_id = $validated['dish_id'];
+        $session_id = $validated['session_id'];
+        $dish_id = $validated['dish_id'];
 
-    //     $cart = DB::table('dish_session')
-    //         ->where('session_id', $session_id)
-    //         ->where('dish_id', $dish_id)
-    //         ->update([
-    //             'price' => $request->price + $cart->price,
-    //             'count' => $request->count + $cart->count,
-    //             'created_at' => now()
-    //         ]);
+        $cart = DB::table('dish_session')
+            ->where('session_id', $session_id)
+            ->where('dish_id', $dish_id)
+            ->update([
+                'price' => $request->price + $cart->price,
+                'count' => $request->count + $cart->count,
+                'created_at' => now()
+            ]);
 
-    //     return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
-    // }
+       return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
+    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        try {
-            $cart = Cart::findOrFail($id);
-            $cart->delete();
-            return response()->json(['message' => 'Блюдо удалено из корзины'], 200);
-        } catch (Exception $e) {
+        try{
+            $cart = DB::table('dish_session')
+            ->where('id',$id)
+            ->get();
+            if($cart){
+                $cart->delete();
+                return response()->json(['message' => 'Корзина очищена'],200);
+            }else{
+                return response()->json([
+                    'message' => 'Данной корзины не существует',
+                ], 400);
+            }
+
+        } catch(Exception $e){
             return response()->json(array('message'=>$e->getMessage()));
         }
+
+
     }
 
     public function add(Request $request)
@@ -133,6 +143,6 @@ class CartController extends Controller
                 'created_at' => now()
             ]);
 
-        return response()->json(['message' => 'Блюдо удалено из корзины'],200);
+       return response()->json(['message' => 'Блюдо удалено из корзины'],200);
     }
 }
