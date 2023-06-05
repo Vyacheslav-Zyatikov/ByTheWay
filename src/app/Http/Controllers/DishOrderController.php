@@ -28,7 +28,20 @@ class DishOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dishes = json_decode($request->dishes);
+
+        foreach ($dishes as $dish) {
+            $dishOrder = DishOrder::make([
+                'order_id' => $dish->order_id,
+                'dish_id' => $dish->dish_id,
+                'price' => $dish->price,
+                'count' => $dish->count,
+                'value' => $dish->value,
+            ]);
+            $dishOrder->save();
+        };
+
+        return response()->json(['message' => 'Блюда добавлены в заказ'], 201);;
     }
 
     /**

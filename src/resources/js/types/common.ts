@@ -28,12 +28,24 @@ export type sectionType = {
 
 export type dishType = {
   id: number | null,
-  section_id?: string,
+  section_id?: number | string,
   title: string,
   description: string,
   image: string,
   price: number,
   availability?: boolean,
+  restaurant?: restaurantType,
+  timestamps?: string,
+}
+
+export type cartType = {
+  id: number,
+  session_id: number,
+  dish_id: number,
+  price: number,
+  count: number,
+  value: number,
+  dish: dishType,
   timestamps?: string,
 }
 
@@ -51,15 +63,20 @@ export type cartItemType = {
 
 export type orderType = {
   id: number | null,
+  session_id: number,
+  restaurant_id: number,
+  restaurant?: string,
+  total: number | null,
   status: string,
   dishes: orderItemType[],
-  value: number | null,
 }
 
 export type orderItemType = {
   id: number | null,
-  title: string,
-  image: string,
+  order_id: number | string,
+  dish_id: number | string,
   price: number,
-  quantity: number,
+  count: number,
+  value: number,
+  dish: dishType,
 }

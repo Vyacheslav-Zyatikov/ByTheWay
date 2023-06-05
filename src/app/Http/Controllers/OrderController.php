@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Resources\RestaurantResource;
+use App\Http\Resources\OrderResource;
+use App\Models\Restaurant;
 
 class OrderController extends Controller
 {
@@ -13,6 +16,13 @@ class OrderController extends Controller
     public function index()
     {
         return inertia('client/OrderPage');
+    }
+
+    public function getRestaurantOrders($id)
+    {
+        $restaurant = new RestaurantResource(Restaurant::with(['orders.dish_orders', 'orders.dish_orders.dish'])->findOrFail($id));
+
+        return OrderResource::collection($restaurant->orders()->get());
     }
 
     /**
@@ -28,7 +38,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = Order::make([
+            'session_id' => (int)$request->session_id,
+            'restaurant_id' => (int)$request->restaurant_id,
+            'total' => (float)$request->total,
+            'status' => 'new',
+        ]);
+        $order->save();
+
+        return $order;
     }
 
     /**

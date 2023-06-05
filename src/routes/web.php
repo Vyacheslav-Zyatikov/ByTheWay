@@ -6,7 +6,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -35,8 +35,9 @@ Route::middleware(['auth:restaurant'])->group(function(){
 Route::get('menu/{restaurantId}', [AccountController::class,'showMenu'])->where(['restaurantId' => '[1-9][0-9]?']);
 Route::get('orders/{restaurantId}', [AccountController::class,'showOrders'])->where(['restaurantId' => '[1-9][0-9]?']);
 Route::get('cart', [CartController::class, 'index']);
+Route::get('payment', [PaymentController::class, 'index']);
 Route::get('order', [OrderController::class, 'index']);
-Route::post('session', [SessionController::class,'add']);
+// Route::post('session', [SessionController::class,'add']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class, 'indexRest'])->where(['restaurant' => '[1-9][0-9]?']);
 
 // Route::get('cart', [CartController::class, 'index']);

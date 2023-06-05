@@ -15,6 +15,24 @@ export default function OrderItem ({order}: {order: orderType}) {
     setOpen(!open);
   };
 
+  const getStatusAlias = (status) => {
+    if (status === 'choice') {
+      return 'Выбор блюд';
+    } else if (status === 'payment') {
+      return 'Оплата';
+    } else if (status === 'new') {
+      return 'В очереди';
+    } else if (status === 'cooking') {
+      return 'Уже готовим';
+    } else if (status === 'ready') {
+      return 'Готов!';
+    } else if (status === 'received') {
+      return 'Получен';
+    } else if (status === 'archive') {
+      return 'Архив';
+    }
+  }
+
   return (
     <Card
       sx={{ height: "100%", display: "flex", flexDirection: "column", mb: "24px", }}
@@ -24,15 +42,22 @@ export default function OrderItem ({order}: {order: orderType}) {
       component="nav"
       aria-labelledby="nested-list-subheader"
       subheader={
-        <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", p: "20px"}}>
-          <Box sx={{display: "flex"}}>
+        <Box>
+          <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", p: "20px"}}>
+            <Box sx={{display: "flex"}}>
+              <span style={{fontSize: "16px", lineHeight: "24px", fontWeight: "bold"}}>
+                Заказ № {order.id}: {getStatusAlias(order.status)}
+              </span>
+            </Box>
+              <span style={{fontSize: "16px", lineHeight: "24px"}}>
+                Стоимость: {order.total} &#8381;
+              </span>
+          </Box>
+          <Box sx={{display: "flex",  p: "20px"}}>
             <span style={{fontSize: "16px", lineHeight: "24px"}}>
-              Заказ № {order.id} {order.status}
+              Ресторан: {order.restaurant}
             </span>
           </Box>
-          <span style={{fontSize: "16px", lineHeight: "24px"}}>
-            Цена {order.value} &#8381;
-          </span>
         </Box>
       }
       >
@@ -47,15 +72,15 @@ export default function OrderItem ({order}: {order: orderType}) {
         }
 
         <Collapse in={open} timeout="auto" unmountOnExit sx={{px: "20px"}}>
-          {order.dishes.map((dish) => (
-            <div key={dish.id} className="order__card">
+          {order.dishes.map((dishOrder) => (
+            <div key={dishOrder.id} className="order__card">
               <div className="order__card-wrap">
                 <div className="order__card-image-wrapper">
-                  <img className="order__card-image" src={dish.image} alt={dish.title}/>
+                  <img className="order__card-image" src={`/storage/images/${dishOrder.dish.image}`} alt={dishOrder.dish.title}/>
                 </div>
-                <span className="order__card-text">{dish.title}</span>
+                <span className="order__card-text">{dishOrder.dish.title}</span>
               </div>
-              <span className="order__card-text order__card-text--price">{dish.price} &#8381;</span>
+              <span className="order__card-text order__card-text--price">{dishOrder.price} &#8381; X {dishOrder.count} = {dishOrder.value} &#8381;</span>
             </div>
           ))}
         </Collapse>

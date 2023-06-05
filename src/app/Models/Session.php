@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     use HasFactory;
-
     
     protected $table = 'session';
 
@@ -24,7 +23,7 @@ class Session extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function dish_session() {
-        return $this->hasMany(Cart::class);
+    public function dishes() {
+        return $this->belongsToMany(Dish::class);
     }
 }

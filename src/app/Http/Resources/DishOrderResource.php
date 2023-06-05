@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Dish;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DishOrderResource extends JsonResource
@@ -15,7 +16,7 @@ class DishOrderResource extends JsonResource
             'price' => $this->price,
             'count' => $this->count,
             'value' => $this->value,
-            'dishes' => DishResource::collection($this->dishes),
+            'dish' => new DishResource(Dish::findOrFail($this->dish_id)),
         ];
     }
 }

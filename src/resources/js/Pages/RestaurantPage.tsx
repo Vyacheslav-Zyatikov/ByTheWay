@@ -1,3 +1,4 @@
+import * as React from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,6 +11,7 @@ import type {restaurantType, dishType} from "@/types/common";
 import { setCartCount, setCart } from "@/redux/reducers/cartReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { router } from "@inertiajs/react";
+import axios from "axios";
 
 function CardComponent ({card}: {card: dishType}) {
   const count = useAppSelector(state => state.cartReducer.count)
@@ -17,11 +19,46 @@ function CardComponent ({card}: {card: dishType}) {
   const dispatch = useAppDispatch()
 
   const addToCartHandle = () => {
-    const cartItem = Object.assign({}, card); // костыли, удалить при появлении апи
+    const cartItem = Object.assign({}, card);
     cartItem["quantity"] = 1;
-    const newCart = [...cart, cartItem]
-    dispatch(setCart(newCart));
-    dispatch(setCartCount(count + 1));
+
+    const formData = new FormData();
+    let dish = JSON.stringify(cartItem);
+    formData.append('dish', dish);
+
+    axios.post('../api/session', formData)
+    .then((res) => {
+      sessionStorage.setItem('status', 'choice');
+
+      let storedCount = Number(sessionStorage.getItem('count'));
+      if (storedCount) {
+        storedCount++;
+        let strCount = String(storedCount);
+        sessionStorage.setItem('count', strCount);
+        dispatch(setCartCount(storedCount));
+      } else {
+        sessionStorage.setItem('count', '1');
+        dispatch(setCartCount(1));
+      }
+
+      let newCartItem = res.data;
+      let sessionId = res.data.session_id;
+      sessionStorage.setItem('sessionId', sessionId);
+
+      let storedCart = sessionStorage.getItem('cart');
+      if (storedCart) {
+        let newCartForStorage = [...JSON.parse(storedCart), newCartItem];
+        dispatch(setCart(newCartForStorage));
+        sessionStorage.setItem('cart', JSON.stringify(newCartForStorage));
+      } else {
+        let newCartForStorage = [newCartItem];
+        dispatch(setCart(newCartForStorage));
+        sessionStorage.setItem('cart', JSON.stringify(newCartForStorage));
+      }
+    })
+    .catch((error) => {
+      console.log('Ошибка:', error);
+    });
   }
 
   return (
@@ -50,14 +87,21 @@ function CardComponent ({card}: {card: dishType}) {
 }
 
 export default function RestaurantPage({ restaurant, dishes }:{restaurant:restaurantType, dishes:dishType}) {
+  const count = useAppSelector(state => state.cartReducer.count)
 
-    const count = useAppSelector(state => state.cartReducer.count)
-
-  const createOrder = () => {
+  const goToCart = () => {
       router.visit("/cart");
   }
 
-    return (
+  const setStatus = async () => {
+    sessionStorage.setItem('status', 'choice');
+  };
+
+  React.useEffect(() => {
+    setStatus();
+  }, []);
+
+  return (
     <Box className="restaurant">
         <div className="restaurant__hero-image-wrapper">
           <img className="restaurant__hero-image" src={`/storage/images/${restaurant.image}`} alt={restaurant.title}/>
@@ -80,9 +124,9 @@ export default function RestaurantPage({ restaurant, dishes }:{restaurant:restau
               </Grid>
             ))}
           </Grid>
-          { count > 0
+          {count > 0
             ? <Box sx={{display: "flex", justifyContent: "center", marginTop: "40px"}}>
-                <Button variant="contained" size="large" onClick={createOrder}>Оформить заказ</Button>
+                <Button variant="contained" size="large" onClick={goToCart}>Оформить заказ</Button>
               </Box>
             : null
           }

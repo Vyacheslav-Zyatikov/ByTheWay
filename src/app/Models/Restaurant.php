@@ -22,4 +22,9 @@ class Restaurant extends Authenticatable
     {
         return $this->hasMany(Section::class);
     }
+
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

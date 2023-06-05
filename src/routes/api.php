@@ -3,8 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\DishOrderController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\CartController;
 
@@ -25,6 +28,15 @@ Route::middleware(['auth:restaurant'])->group(function(){
     // Route::get('account', [AccountController::class, 'index']);
 });
 
+/*** СЕССИИ ***/
+Route::post('session', [SessionController::class,'addDishToCart']); // добавить блюда в корзину (в сессию)
+Route::get('cart/{sessionId}', [SessionController::class, 'getSessionDishes']); // получить корзину по id сессии
+Route::get('cartValue/{sessionId}', [SessionController::class, 'getSessionDishesValue']); // получить стоимость корзины по id сессии
+Route::delete('cart/{dishSessionId}', [CartController::class,'destroy']); // удалить блюдо из корзины по id записи в таблице dish_session
+/*** ЗАКАЗЫ ***/
+Route::get('orders/{restaurantId}', [OrderController::class,'getRestaurantOrders']); // получить список заказов ресторана по id
+Route::post('order', [OrderController::class,'store']); // создать заказ
+Route::post('dishOrder', [DishOrderController::class,'store']); // добавить блюда в заказ
 /*** РЕСТОРАНЫ ***/
 Route::get('restaurants', [RestaurantController::class,'index']);
 Route::get('restaurants/{restaurant}', [RestaurantController::class,'show']);
@@ -57,12 +69,12 @@ Route::get('sections/{restaurantId}', [SectionController::class,'getRestaurantSe
 // Route::delete('dishes/{dish}', [DishController::class,'destroy']);
 
 /*** КОРЗИНА ***/
-Route::get('cart/{cart}', [CartController::class,'show']);
+// Route::get('cart/{cart}', [CartController::class,'show']);
 //создание корзины
-Route::post('cart',[CartController::class,'create']);
+// Route::post('cart',[CartController::class,'create']);
 //добавление нового блюда
-Route::put('cart/{dish}', [CartController::class,'update']);
+// Route::put('cart/{dish}', [CartController::class,'update']);
 // удаление
-Route::delete('cart/{cart}', [DishController::class,'destroy']);
+// Route::delete('cart/{cart}', [DishController::class,'destroy']);
 //удаление блюда изкорзины
-Route::delete('cart/{dish}',[DishController::class,'deldish']);
+// Route::delete('cart/{dish}',[DishController::class,'deldish']);

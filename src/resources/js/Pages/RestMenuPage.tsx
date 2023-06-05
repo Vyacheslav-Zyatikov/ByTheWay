@@ -54,7 +54,7 @@ export default function RestMenuPage({ restaurant }) {
             .catch((error) => {
                 console.log(error);
             });
-    }
+    };
 
     React.useEffect(() => {
         getMenu();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CartResource;
 use App\Models\Cart;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-      return inertia('client/CartPage');
+        return inertia('client/CartPage');
     }
 
     /**
@@ -38,7 +39,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        return new CartResource(Cart::findOrFail($dish_session->id));
+        // return new CartResource(Cart::findOrFail($dish_session->id));
     }
 
     /**
@@ -72,7 +73,7 @@ class CartController extends Controller
                 'created_at' => now()
             ]);
 
-       return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
+        return response()->json(['message' => 'Блюдо добавлено в корзину'],200);
     }
 
     /**
@@ -80,24 +81,13 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $cart = DB::table('dish_session')
-            ->where('id',$id)
-            ->get();
-            if($cart){
-                $cart->delete();
-                return response()->json(['message' => 'Корзина очищена'],200);
-            }else{
-                return response()->json([
-                    'message' => 'Данной корзины не существует',
-                ], 400);
-            }
-
+        try {
+            $cart = Cart::findOrFail($id);
+            $cart->delete();
+            return response()->json(['message' => 'Блюдо удалено из корзины'], 200);
         } catch(Exception $e){
             return response()->json(array('message'=>$e->getMessage()));
         }
-
-
     }
 
     public function add(Request $request)
@@ -143,6 +133,6 @@ class CartController extends Controller
                 'created_at' => now()
             ]);
 
-       return response()->json(['message' => 'Блюдо удалено из корзины'],200);
+        return response()->json(['message' => 'Блюдо удалено из корзины'],200);
     }
 }
