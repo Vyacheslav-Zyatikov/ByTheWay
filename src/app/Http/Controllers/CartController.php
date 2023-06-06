@@ -97,7 +97,6 @@ class CartController extends Controller
             return response()->json(array('message'=>$e->getMessage()));
         }
 
-
     }
 
     public function add(Request $request)
