@@ -11,7 +11,7 @@ class Cart extends Model
 
     protected $table = 'dish_session';
 
-    protected $guarded = [ // зеркальный вариант $fillable (все, кроме id)
+    protected $guarded = [
         'id'
     ];
 

@@ -2,11 +2,12 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Container from "@mui/material/Container";
+import Container, { getContainerUtilityClass } from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import HeaderMenu from "@/components/header/HeaderMenu";
 import Logo from "@/components/header/Logo";
 import AuthModal from "@/components/modal/AuthModal";
+import Typography from "@mui/material/Typography";
 import type {objectType, headerItem} from "@/types/common";
 import { useAppSelector } from "@/redux/store";
 import { router } from "@inertiajs/react";
@@ -29,12 +30,32 @@ function HeaderBar() {
   // const user = useAppSelector(state => state.authReducer.user)
   const count = useAppSelector(state => state.cartReducer.count)
   const [token, setToken] = React.useState('');
+  const [status, setStatus] = React.useState('');
+  const [ordersCount, setOrdersCount] = React.useState('');
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const handleModalOpen = (value) => setIsModalOpen(value);
 
   const handleNavMenu = (page) => {
       router.visit(`/${page.url}`, { method: "get" })
+  }
+
+  const getStatusAlias = (status) => {
+    if (status === 'choice') {
+      return 'Выбор блюд';
+    } else if (status === 'payment') {
+      return 'Оплата';
+    } else if (status === 'new') {
+      return 'В очереди';
+    } else if (status === 'cooking') {
+      return 'Уже готовим';
+    } else if (status === 'ready') {
+      return 'Готов!';
+    } else if (status === 'received') {
+      return 'Получен';
+    } else if (status === 'archive') {
+      return 'Архив';
+    }
   }
 
   const goToRestMenu = (e) => {
@@ -58,9 +79,32 @@ function HeaderBar() {
     }
   };
 
+  const getStatus = async () => {
+    let status = sessionStorage.getItem('status');
+    if (status) {
+      setStatus(status);
+    } else {
+      setStatus('');
+    }
+  };
+
+  const getOrdersCount = async () => {
+    let ordersCount = sessionStorage.getItem('ordersCount');
+    if (ordersCount) {
+      setOrdersCount(ordersCount);
+    } else {
+      setOrdersCount('');
+    }
+  };
+
   React.useEffect(() => {
     getToken();
   });
+
+  React.useEffect(() => {
+    getStatus();
+    getOrdersCount();
+  }, [count, status, ordersCount]);
 
   return (
     <AppBar position="sticky" color="default">
@@ -96,15 +140,20 @@ function HeaderBar() {
                   >
                     {page.label}
                   </Button>
-                  {page.code === "GuestCart" && count !== 0
+                  {page.code === "GuestCart" && count > 0
                     ? <Box className="count" sx={{position: "absolute", top: "-6px", right: "2px"}}>{count}</Box>
                     : null
                   }
                 </Box>
               ))}
+              {count > 0 && !(status === 'received' || status === 'archive')
+              ? <Typography sx={{ mt: '5.5px', display: "block",  fontWeight: "bold" }}>
+                Новый заказ: {getStatusAlias(status)}
+                </Typography>
+              : ''
+              }
             </Box>
           }
-
 
           <HeaderMenu menu={menu} role={role} handleModalOpen={handleModalOpen}></HeaderMenu>
         </Toolbar>

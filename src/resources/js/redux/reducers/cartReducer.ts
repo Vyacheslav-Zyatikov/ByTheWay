@@ -1,13 +1,22 @@
-import type {dishType} from "@/types/common"
+import type {cartType} from "@/types/common"
 
 type stateType = {
     count: number,
-    cart: dishType[],
+    cart: cartType[],
+}
+
+const getCart = () => {
+    let storedCart = sessionStorage.getItem('cart');
+    if (storedCart) {
+        return JSON.parse(storedCart);
+    } else {
+        return [];
+    }
 }
 
 const initialState: stateType = {
-    count: 0,
-    cart: [],
+    count: Number(sessionStorage.getItem('count')),
+    cart: getCart(),
 }
 
 export const cartReducer = (state = initialState, action) => {

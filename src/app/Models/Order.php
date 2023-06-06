@@ -15,11 +15,23 @@ class Order extends Model
         'id'
     ];
 
+    public function restaurant() {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    public function session() {
+        return $this->belongsTo(Session::class);
+    }
+
     public function sessions() {
         return $this->hasMany(Session::class);
     }
 
-    public function dish_order() {
+    public function dishes() {
+        return $this->belongsToMany(Dish::class);
+    }
+
+    public function dish_orders() {
         return $this->hasMany(DishOrder::class);
     }
 }

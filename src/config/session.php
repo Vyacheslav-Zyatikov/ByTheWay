@@ -31,7 +31,7 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => env('SESSION_LIFETIME', 240),
 
     'expire_on_close' => false,
 
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'table' => 'sessions',
+    'table' => 'session',
 
     /*
     |--------------------------------------------------------------------------
@@ -169,6 +169,7 @@ return [
     */
 
     'secure' => env('SESSION_SECURE_COOKIE'),
+    // 'secure' => false,
 
     /*
     |--------------------------------------------------------------------------

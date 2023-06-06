@@ -28,8 +28,13 @@ export default function HomePage() {
       });
   }
 
+  const setStatus = async () => {
+    sessionStorage.setItem('status', 'choice');
+  };
+
   useEffect(() => {
     getRestaurants();
+    setStatus();
   }, []);
 
     return (

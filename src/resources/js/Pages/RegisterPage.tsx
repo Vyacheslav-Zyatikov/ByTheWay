@@ -80,7 +80,7 @@ function RegisterPage() {
           } else {
             localStorage.setItem('xsrf', res.config.headers['X-XSRF-TOKEN']);
             localStorage.setItem('restId', res.data.restaurant.id);
-            router.visit(`account/${res.data.restaurant.id}`, {method: 'get'});
+            router.visit(`../account/${res.data.restaurant.id}`, {method: 'get'});
           }
         })
         .catch((err) => {
